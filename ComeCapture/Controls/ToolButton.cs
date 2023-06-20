@@ -31,6 +31,9 @@ namespace ComeCapture.Controls
                     case Tool.OK:
                         MainWindow.Current.OnOK();
                         break;
+                    case Tool.Light:
+                        MainWindow.Current.OnTurnOnLight();
+                        break;
                     default:
                         IsChecked = !IsChecked;
                         SizeColorBar.Current.Selected = IsChecked == true ? Tool : Tool.Null;

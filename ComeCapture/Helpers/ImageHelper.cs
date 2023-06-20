@@ -67,8 +67,12 @@ namespace ComeCapture.Helpers
         #region 获取RGB
         private static Bitmap _Bitmap = null;
         private static StringBuilder sb = new StringBuilder();
-        public static string GetRGB(int x,int y)
+        public static string GetRGB(int x, int y)
         {
+            if (x < 0 || y < 0)
+            {
+                return string.Empty;
+            }
             var color = _Bitmap.GetPixel(x, y);
             sb.Clear();
             sb.Append("RGB:（");

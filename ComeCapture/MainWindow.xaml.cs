@@ -185,6 +185,26 @@ namespace ComeCapture
         }
         #endregion
 
+        #region 开关灯
+        public void OnTurnOnLight()
+        {
+            if (MaskLeft.Opacity == 1)
+            {
+                MaskLeft.Opacity = 0.5;
+                MaskRight.Opacity = 0.5;
+                MaskTop.Opacity = 0.5;
+                MaskBottom.Opacity = 0.5;
+            }
+            else
+            {
+                MaskLeft.Opacity = 1;
+                MaskRight.Opacity = 1;
+                MaskTop.Opacity = 1;
+                MaskBottom.Opacity = 1;
+            }
+        }
+        #endregion
+
         #region 截图前隐藏窗口
         private void Hidden()
         {
@@ -287,6 +307,5 @@ namespace ComeCapture
             }
         }
         #endregion
-
     }
 }

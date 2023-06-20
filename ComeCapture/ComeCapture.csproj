@@ -140,5 +140,11 @@
   <ItemGroup>
     <Resource Include="cut.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\灯.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\最大化.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

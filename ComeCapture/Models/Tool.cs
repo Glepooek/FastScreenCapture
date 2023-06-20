@@ -8,6 +8,8 @@
         Line,//画刷
         Text,//文字
         Arrow,//箭头
+        Light,//开关灯
+        MaxEditImage,//最大化截图
         Revoke,//撤销
         Save,//保存
         Cancel,//退出截图
