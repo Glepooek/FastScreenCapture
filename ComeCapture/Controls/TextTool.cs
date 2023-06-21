@@ -63,15 +63,16 @@ namespace ComeCapture.Controls
             get { return (int)GetValue(FontSizeProperty); }
             set { SetValue(FontSizeProperty, value); }
         }
+
         public static readonly DependencyProperty FontSizeProperty =
                 DependencyProperty.Register("FontSize", typeof(int), typeof(TextTool),
-                new PropertyMetadata(12, new PropertyChangedCallback(TextTool.OnFontSizePropertyChanged)));
+                new PropertyMetadata(12, new PropertyChangedCallback(OnFontSizePropertyChanged)));
 
         private static void OnFontSizePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is TextTool)
+            if (obj is TextTool textTool)
             {
-                (obj as TextTool).OnFontSizeValueChanged();
+                textTool.OnFontSizeValueChanged();
             }
         }
 
@@ -89,13 +90,13 @@ namespace ComeCapture.Controls
         }
         public static readonly DependencyProperty LineBrushProperty =
                 DependencyProperty.Register("LineBrush", typeof(SolidColorBrush), typeof(TextTool),
-                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(TextTool.OnLineBrushPropertyChanged)));
+                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(OnLineBrushPropertyChanged)));
 
         private static void OnLineBrushPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is TextTool)
+            if (obj is TextTool textTool)
             {
-                (obj as TextTool).OnLineBrushValueChanged();
+                textTool.OnLineBrushValueChanged();
             }
         }
 

@@ -33,15 +33,16 @@ namespace ComeCapture.Controls
             get { return (double)GetValue(LineThicknessProperty); }
             set { SetValue(LineThicknessProperty, value); }
         }
+
         public static readonly DependencyProperty LineThicknessProperty =
                 DependencyProperty.Register("LineThickness", typeof(double), typeof(LineTool),
-                new PropertyMetadata(5.0, new PropertyChangedCallback(LineTool.OnLineThicknessPropertyChanged)));
+                new PropertyMetadata(5.0, new PropertyChangedCallback(OnLineThicknessPropertyChanged)));
 
         private static void OnLineThicknessPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is LineTool)
+            if (obj is LineTool lineTool)
             {
-                (obj as LineTool).OnLineThicknessValueChanged();
+                lineTool.OnLineThicknessValueChanged();
             }
         }
 
@@ -57,15 +58,16 @@ namespace ComeCapture.Controls
             get { return (SolidColorBrush)GetValue(LineBrushProperty); }
             set { SetValue(LineBrushProperty, value); }
         }
+
         public static readonly DependencyProperty LineBrushProperty =
                 DependencyProperty.Register("LineBrush", typeof(SolidColorBrush), typeof(LineTool),
-                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(LineTool.OnLineBrushPropertyChanged)));
+                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(OnLineBrushPropertyChanged)));
 
         private static void OnLineBrushPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is LineTool)
+            if (obj is LineTool lineTool)
             {
-                (obj as LineTool).OnLineBrushValueChanged();
+                lineTool.OnLineBrushValueChanged();
             }
         }
 
@@ -74,6 +76,5 @@ namespace ComeCapture.Controls
 
         }
         #endregion
-
     }
 }

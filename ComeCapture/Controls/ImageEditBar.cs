@@ -45,15 +45,16 @@ namespace ComeCapture.Controls
             get { return (double)GetValue(CanvasLeftProperty); }
             set { SetValue(CanvasLeftProperty, value); }
         }
+
         public static readonly DependencyProperty CanvasLeftProperty =
                 DependencyProperty.Register("CanvasLeft", typeof(double), typeof(ImageEditBar),
-                new PropertyMetadata(0.0, new PropertyChangedCallback(ImageEditBar.OnCanvasLeftPropertyChanged)));
+                new PropertyMetadata(0.0, new PropertyChangedCallback(OnCanvasLeftPropertyChanged)));
 
         private static void OnCanvasLeftPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is ImageEditBar)
+            if (obj is ImageEditBar imageEditBar)
             {
-                (obj as ImageEditBar).OnCanvasLeftValueChanged();
+                imageEditBar.OnCanvasLeftValueChanged();
             }
         }
 
@@ -74,15 +75,16 @@ namespace ComeCapture.Controls
             get { return (double)GetValue(CanvasTopProperty); }
             set { SetValue(CanvasTopProperty, value); }
         }
+
         public static readonly DependencyProperty CanvasTopProperty =
                 DependencyProperty.Register("CanvasTop", typeof(double), typeof(ImageEditBar),
-                new PropertyMetadata(0.0, new PropertyChangedCallback(ImageEditBar.OnCanvasTopPropertyChanged)));
+                new PropertyMetadata(0.0, new PropertyChangedCallback(OnCanvasTopPropertyChanged)));
 
         private static void OnCanvasTopPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is ImageEditBar)
+            if (obj is ImageEditBar imageEditBar)
             {
-                (obj as ImageEditBar).OnCanvasTopValueChanged();
+                imageEditBar.OnCanvasTopValueChanged();
             }
         }
 
@@ -99,6 +101,5 @@ namespace ComeCapture.Controls
                 : AppModel.Current.MaskTopHeight;
         }
         #endregion
-
     }
 }

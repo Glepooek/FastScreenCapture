@@ -40,15 +40,16 @@ namespace ComeCapture.Controls
             get { return (Color)GetValue(BorderColorProperty); }
             set { SetValue(BorderColorProperty, value); }
         }
+
         public static readonly DependencyProperty BorderColorProperty =
                 DependencyProperty.Register("BorderColor", typeof(Color), typeof(TextBoxControl),
-                new PropertyMetadata(Colors.Transparent, new PropertyChangedCallback(TextBoxControl.OnBorderColorPropertyChanged)));
+                new PropertyMetadata(Colors.Transparent, new PropertyChangedCallback(OnBorderColorPropertyChanged)));
 
         private static void OnBorderColorPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is TextBoxControl)
+            if (obj is TextBoxControl textBoxControl)
             {
-                (obj as TextBoxControl).OnBorderColorValueChanged();
+                textBoxControl.OnBorderColorValueChanged();
             }
         }
 
@@ -70,9 +71,9 @@ namespace ComeCapture.Controls
 
         private static void OnMyFocusPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is TextBoxControl)
+            if (obj is TextBoxControl textBoxControl)
             {
-                (obj as TextBoxControl).OnMyFocusValueChanged();
+                textBoxControl.OnMyFocusValueChanged();
             }
         }
 

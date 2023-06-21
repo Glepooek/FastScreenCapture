@@ -36,6 +36,5 @@ namespace ComeCapture.Controls
             e.Handled = true;
         }
         #endregion
-
     }
 }

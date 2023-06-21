@@ -1,6 +1,4 @@
-﻿using ComeCapture.Controls;
-
-namespace ComeCapture.Models
+﻿namespace ComeCapture.Models
 {
     /// <summary>
     /// 图片移动的极限值

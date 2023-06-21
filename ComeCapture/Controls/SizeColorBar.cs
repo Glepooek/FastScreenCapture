@@ -133,15 +133,16 @@ namespace ComeCapture.Controls
             get { return (double)GetValue(CanvasLeftProperty); }
             set { SetValue(CanvasLeftProperty, value); }
         }
+
         public static readonly DependencyProperty CanvasLeftProperty =
                 DependencyProperty.Register("CanvasLeft", typeof(double), typeof(SizeColorBar),
-                new PropertyMetadata(0.0, new PropertyChangedCallback(SizeColorBar.OnCanvasLeftPropertyChanged)));
+                new PropertyMetadata(0.0, new PropertyChangedCallback(OnCanvasLeftPropertyChanged)));
 
         private static void OnCanvasLeftPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is SizeColorBar)
+            if (obj is SizeColorBar sizeColorBar)
             {
-                (obj as SizeColorBar).OnCanvasLeftValueChanged();
+                sizeColorBar.OnCanvasLeftValueChanged();
             }
         }
 
@@ -162,15 +163,16 @@ namespace ComeCapture.Controls
             get { return (double)GetValue(CanvasTopProperty); }
             set { SetValue(CanvasTopProperty, value); }
         }
+
         public static readonly DependencyProperty CanvasTopProperty =
                 DependencyProperty.Register("CanvasTop", typeof(double), typeof(SizeColorBar),
-                new PropertyMetadata(0.0, new PropertyChangedCallback(SizeColorBar.OnCanvasTopPropertyChanged)));
+                new PropertyMetadata(0.0, new PropertyChangedCallback(OnCanvasTopPropertyChanged)));
 
         private static void OnCanvasTopPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is SizeColorBar)
+            if (obj is SizeColorBar sizeColorBar)
             {
-                (obj as SizeColorBar).OnCanvasTopValueChanged();
+                sizeColorBar.OnCanvasTopValueChanged();
             }
         }
 
@@ -193,15 +195,16 @@ namespace ComeCapture.Controls
             get { return (Tool)GetValue(SelectedProperty); }
             set { SetValue(SelectedProperty, value); }
         }
+
         public static readonly DependencyProperty SelectedProperty =
                 DependencyProperty.Register("Selected", typeof(Tool), typeof(SizeColorBar),
-                new PropertyMetadata(Tool.Null, new PropertyChangedCallback(SizeColorBar.OnSelectedPropertyChanged)));
+                new PropertyMetadata(Tool.Null, new PropertyChangedCallback(OnSelectedPropertyChanged)));
 
         private static void OnSelectedPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is SizeColorBar)
+            if (obj is SizeColorBar sizeColorBar)
             {
-                (obj as SizeColorBar).OnSelectedValueChanged();
+                sizeColorBar.OnSelectedValueChanged();
             }
         }
 

@@ -146,5 +146,8 @@
   <ItemGroup>
     <Resource Include="Resources\最大化.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\最小化.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

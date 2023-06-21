@@ -22,14 +22,22 @@ namespace ComeCapture
         public static double ScreenScale = 1;
         public static int MinSize = 10;
 
-        //画图注册名称集合
+        /// <summary>
+        /// 画图注册名称集合
+        /// </summary>
         public List<NameAndLimit> list = new List<NameAndLimit>();
-        //画图注册名称
+        /// <summary>
+        /// 画图注册名称
+        /// </summary>
         public int num = 1;
 
-        //是否截图开始
+        /// <summary>
+        /// 是否截图开始
+        /// </summary>
         private bool _IsMouseDown = false;
-        //是否截图完毕
+        /// <summary>
+        /// 是否截图完毕
+        /// </summary>
         private bool _IsCapture = false;
 
         private double _X0 = 0;
@@ -40,7 +48,8 @@ namespace ComeCapture
             _Current = this;
             InitializeComponent();
             DataContext = new AppModel();
-            Background = new ImageBrush(ImageHelper.GetFullBitmapSource());
+            _TempBrush = new ImageBrush(ImageHelper.GetFullBitmapSource());
+            Background = _TempBrush;
             WpfHelper.MainDispatcher = Dispatcher;
             MaxWindow();
             MaskLeft.Height = ScreenHeight;
@@ -203,6 +212,73 @@ namespace ComeCapture
                 MaskBottom.Opacity = 1;
             }
         }
+        #endregion
+
+        #region 最大化截图区域
+
+        private bool _IsMax = false;
+        private ImageBrush _TempBrush;
+        private double _TempWidth = 0;
+        private double _TempHeight = 0;
+        private double _TempLeft = 0;
+        private double _TempTop = 0;
+        public void OnMaxMainImage()
+        {
+            if (_IsCapture)
+            {
+                if (_IsMax)
+                {
+                    _IsMax = false;
+                    Background = _TempBrush;
+
+                    Canvas.SetLeft(MainImage, _TempLeft);
+                    Canvas.SetTop(MainImage, _TempTop);
+                    MainImage.Height = _TempHeight;
+                    MainImage.Width = _TempWidth;
+                    AppModel.Current.MaskLeftWidth = _TempLeft;
+                    AppModel.Current.MaskRightWidth = ScreenWidth - _TempLeft - _TempWidth;
+                    AppModel.Current.MaskTopHeight = _TempTop;
+                    AppModel.Current.MaskTopWidth = _TempWidth;
+                    AppModel.Current.MaskBottomHeight = ScreenHeight - _TempTop - _TempHeight;
+                }
+                else
+                {
+                    _IsMax = true;
+
+                    _TempWidth = MainImage.Width;
+                    _TempHeight = MainImage.Height;
+                    _TempLeft = Canvas.GetLeft(MainImage);
+                    _TempTop = Canvas.GetTop(MainImage);
+
+                    Background = new ImageBrush(GetCapture());
+
+                    var scale = ScreenWidth / ScreenHeight;
+                    var h = ScreenHeight;
+                    var w = ScreenHeight * scale;
+
+                    Canvas.SetLeft(MainImage, (ScreenWidth - w) / 2);
+                    Canvas.SetTop(MainImage, 0);
+                    MainImage.Height = h;
+                    MainImage.Width = w;
+
+                    AppModel.Current.MaskLeftWidth = 0;
+                    AppModel.Current.MaskRightWidth = 0;
+                    AppModel.Current.MaskTopWidth = w;
+                    AppModel.Current.MaskTopHeight = 0;
+                    AppModel.Current.MaskBottomHeight = 0;
+                    AppModel.Current.ChangeShowSize();
+                }
+
+                if (MainImage.Width >= MinSize && MainImage.Height >= MinSize)
+                {
+                    ImageEditBar.Current.Visibility = Visibility.Visible;
+                    ImageEditBar.Current.ResetCanvas();
+                    SizeColorBar.Current.ResetCanvas();
+                    Cursor = Cursors.Arrow;
+                }
+            }
+        }
+
         #endregion
 
         #region 截图前隐藏窗口

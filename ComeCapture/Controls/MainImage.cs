@@ -59,15 +59,16 @@ namespace ComeCapture.Controls
             get { return (Cursor)GetValue(MoveCursorProperty); }
             set { SetValue(MoveCursorProperty, value); }
         }
+
         public static readonly DependencyProperty MoveCursorProperty =
                 DependencyProperty.Register("MoveCursor", typeof(Cursor), typeof(MainImage),
-                new PropertyMetadata(Cursors.SizeAll, new PropertyChangedCallback(MainImage.OnMoveCursorPropertyChanged)));
+                new PropertyMetadata(Cursors.SizeAll, new PropertyChangedCallback(OnMoveCursorPropertyChanged)));
 
         private static void OnMoveCursorPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is MainImage)
+            if (obj is MainImage mainImage)
             {
-                (obj as MainImage).OnMoveCursorValueChanged();
+                mainImage.OnMoveCursorValueChanged();
             }
         }
 
@@ -83,15 +84,16 @@ namespace ComeCapture.Controls
             get { return (Direction)GetValue(DirectionProperty); }
             set { SetValue(DirectionProperty, value); }
         }
+
         public static readonly DependencyProperty DirectionProperty =
                 DependencyProperty.Register("Direction", typeof(Direction), typeof(MainImage),
                 new PropertyMetadata(Direction.Null, new PropertyChangedCallback(MainImage.OnDirectionPropertyChanged)));
 
         private static void OnDirectionPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is MainImage)
+            if (obj is MainImage mainImage)
             {
-                (obj as MainImage).OnDirectionValueChanged();
+                mainImage.OnDirectionValueChanged();
             }
         }
 
@@ -107,15 +109,16 @@ namespace ComeCapture.Controls
             get { return (Limit)GetValue(LimitProperty); }
             set { SetValue(LimitProperty, value); }
         }
+
         public static readonly DependencyProperty LimitProperty =
                 DependencyProperty.Register("Limit", typeof(Limit), typeof(MainImage),
                 new PropertyMetadata(null, new PropertyChangedCallback(MainImage.OnLimitPropertyChanged)));
 
         private static void OnLimitPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is MainImage)
+            if (obj is MainImage mainImage)
             {
-                (obj as MainImage).OnLimitValueChanged();
+                mainImage.OnLimitValueChanged();
             }
         }
 
@@ -131,15 +134,16 @@ namespace ComeCapture.Controls
             get { return (Visibility)GetValue(ZoomThumbVisibilityProperty); }
             set { SetValue(ZoomThumbVisibilityProperty, value); }
         }
+
         public static readonly DependencyProperty ZoomThumbVisibilityProperty =
                 DependencyProperty.Register("ZoomThumbVisibility", typeof(Visibility), typeof(MainImage),
                 new PropertyMetadata(Visibility.Visible, new PropertyChangedCallback(MainImage.OnZoomThumbVisibilityPropertyChanged)));
 
         private static void OnZoomThumbVisibilityPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is MainImage)
+            if (obj is MainImage mainImage)
             {
-                (obj as MainImage).OnZoomThumbVisibilityValueChanged();
+                mainImage.OnZoomThumbVisibilityValueChanged();
             }
         }
 

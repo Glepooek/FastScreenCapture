@@ -34,6 +34,10 @@ namespace ComeCapture.Controls
                     case Tool.Light:
                         MainWindow.Current.OnTurnOnLight();
                         break;
+                    case Tool.MaxEditImage:
+                        IsChecked = !IsChecked;
+                        MainWindow.Current.OnMaxMainImage();
+                        break;
                     default:
                         IsChecked = !IsChecked;
                         SizeColorBar.Current.Selected = IsChecked == true ? Tool : Tool.Null;
@@ -60,15 +64,16 @@ namespace ComeCapture.Controls
             get { return (Tool)GetValue(ToolProperty); }
             set { SetValue(ToolProperty, value); }
         }
+
         public static readonly DependencyProperty ToolProperty =
                 DependencyProperty.Register("Tool", typeof(Tool), typeof(ToolButton),
-                new PropertyMetadata(Tool.Null, new PropertyChangedCallback(ToolButton.OnToolPropertyChanged)));
+                new PropertyMetadata(Tool.Null, new PropertyChangedCallback(OnToolPropertyChanged)));
 
         private static void OnToolPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is ToolButton)
+            if (obj is ToolButton toolButton)
             {
-                (obj as ToolButton).OnToolValueChanged();
+                toolButton.OnToolValueChanged();
             }
         }
 
@@ -84,15 +89,16 @@ namespace ComeCapture.Controls
             get { return (bool)GetValue(IsImageEditBarProperty); }
             set { SetValue(IsImageEditBarProperty, value); }
         }
+
         public static readonly DependencyProperty IsImageEditBarProperty =
                 DependencyProperty.Register("IsImageEditBar", typeof(bool), typeof(ToolButton),
-                new PropertyMetadata(false, new PropertyChangedCallback(ToolButton.OnIsImageEditBarPropertyChanged)));
+                new PropertyMetadata(false, new PropertyChangedCallback(OnIsImageEditBarPropertyChanged)));
 
         private static void OnIsImageEditBarPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is ToolButton)
+            if (obj is ToolButton toolButton)
             {
-                (obj as ToolButton).OnIsImageEditBarValueChanged();
+                toolButton.OnIsImageEditBarValueChanged();
             }
         }
 
@@ -108,15 +114,16 @@ namespace ComeCapture.Controls
             get { return (SolidColorBrush)GetValue(LineColorProperty); }
             set { SetValue(LineColorProperty, value); }
         }
+
         public static readonly DependencyProperty LineColorProperty =
                 DependencyProperty.Register("LineColor", typeof(SolidColorBrush), typeof(ToolButton),
-                new PropertyMetadata(null, new PropertyChangedCallback(ToolButton.OnLineColorPropertyChanged)));
+                new PropertyMetadata(null, new PropertyChangedCallback(OnLineColorPropertyChanged)));
 
         private static void OnLineColorPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is ToolButton)
+            if (obj is ToolButton toolButton)
             {
-                (obj as ToolButton).OnLineColorValueChanged();
+                toolButton.OnLineColorValueChanged();
             }
         }
 

@@ -63,15 +63,16 @@ namespace ComeCapture.Controls
             get { return (double)GetValue(LineThicknessProperty); }
             set { SetValue(LineThicknessProperty, value); }
         }
+
         public static readonly DependencyProperty LineThicknessProperty =
                 DependencyProperty.Register("LineThickness", typeof(double), typeof(ArrowTool),
-                new PropertyMetadata(5.0, new PropertyChangedCallback(ArrowTool.OnLineThicknessPropertyChanged)));
+                new PropertyMetadata(5.0, new PropertyChangedCallback(OnLineThicknessPropertyChanged)));
 
         private static void OnLineThicknessPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is ArrowTool)
+            if (obj is ArrowTool arrowTool)
             {
-                (obj as ArrowTool).OnLineThicknessValueChanged();
+                arrowTool.OnLineThicknessValueChanged();
             }
         }
 
@@ -87,15 +88,16 @@ namespace ComeCapture.Controls
             get { return (SolidColorBrush)GetValue(LineBrushProperty); }
             set { SetValue(LineBrushProperty, value); }
         }
+
         public static readonly DependencyProperty LineBrushProperty =
                 DependencyProperty.Register("LineBrush", typeof(SolidColorBrush), typeof(ArrowTool),
-                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(ArrowTool.OnLineBrushPropertyChanged)));
+                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(OnLineBrushPropertyChanged)));
 
         private static void OnLineBrushPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is ArrowTool)
+            if (obj is ArrowTool arrowTool)
             {
-                (obj as ArrowTool).OnLineBrushValueChanged();
+                arrowTool.OnLineBrushValueChanged();
             }
         }
 
@@ -111,15 +113,16 @@ namespace ComeCapture.Controls
             get { return (double)GetValue(ArrowLengthProperty); }
             set { SetValue(ArrowLengthProperty, value); }
         }
+
         public static readonly DependencyProperty ArrowLengthProperty =
                 DependencyProperty.Register("ArrowLength", typeof(double), typeof(ArrowTool),
-                new PropertyMetadata(17.0, new PropertyChangedCallback(ArrowTool.OnArrowLengthPropertyChanged)));
+                new PropertyMetadata(17.0, new PropertyChangedCallback(OnArrowLengthPropertyChanged)));
 
         private static void OnArrowLengthPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is ArrowTool)
+            if (obj is ArrowTool arrowTool)
             {
-                (obj as ArrowTool).OnArrowLengthValueChanged();
+                arrowTool.OnArrowLengthValueChanged();
             }
         }
 
@@ -135,15 +138,16 @@ namespace ComeCapture.Controls
             get { return (double)GetValue(ArrowAngleProperty); }
             set { SetValue(ArrowAngleProperty, value); }
         }
+
         public static readonly DependencyProperty ArrowAngleProperty =
                 DependencyProperty.Register("ArrowAngle", typeof(double), typeof(ArrowTool),
-                new PropertyMetadata(0.45, new PropertyChangedCallback(ArrowTool.OnArrowAnglePropertyChanged)));
+                new PropertyMetadata(0.45, new PropertyChangedCallback(OnArrowAnglePropertyChanged)));
 
         private static void OnArrowAnglePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is ArrowTool)
+            if (obj is ArrowTool arrowTool)
             {
-                (obj as ArrowTool).OnArrowAngleValueChanged();
+                arrowTool.OnArrowAngleValueChanged();
             }
         }
 
@@ -152,6 +156,5 @@ namespace ComeCapture.Controls
 
         }
         #endregion
-
     }
 }

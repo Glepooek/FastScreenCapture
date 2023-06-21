@@ -33,15 +33,16 @@ namespace ComeCapture.Controls
             get { return (double)GetValue(LineThicknessProperty); }
             set { SetValue(LineThicknessProperty, value); }
         }
+
         public static readonly DependencyProperty LineThicknessProperty =
                 DependencyProperty.Register("LineThickness", typeof(double), typeof(RectangleTool),
-                new PropertyMetadata(5.0, new PropertyChangedCallback(RectangleTool.OnLineThicknessPropertyChanged)));
+                new PropertyMetadata(5.0, new PropertyChangedCallback(OnLineThicknessPropertyChanged)));
 
         private static void OnLineThicknessPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is RectangleTool)
+            if (obj is RectangleTool rectangleTool)
             {
-                (obj as RectangleTool).OnLineThicknessValueChanged();
+                rectangleTool.OnLineThicknessValueChanged();
             }
         }
 
@@ -57,15 +58,16 @@ namespace ComeCapture.Controls
             get { return (SolidColorBrush)GetValue(LineBrushProperty); }
             set { SetValue(LineBrushProperty, value); }
         }
+
         public static readonly DependencyProperty LineBrushProperty =
                 DependencyProperty.Register("LineBrush", typeof(SolidColorBrush), typeof(RectangleTool),
-                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(RectangleTool.OnLineBrushPropertyChanged)));
+                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(OnLineBrushPropertyChanged)));
 
         private static void OnLineBrushPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is RectangleTool)
+            if (obj is RectangleTool rectangleTool)
             {
-                (obj as RectangleTool).OnLineBrushValueChanged();
+                rectangleTool.OnLineBrushValueChanged();
             }
         }
 

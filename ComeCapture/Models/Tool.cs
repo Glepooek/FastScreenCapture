@@ -2,17 +2,53 @@
 {
     public enum Tool
     {
-        Null,//无状态可移动
-        Rectangle,//长方形
-        Ellipse,//圆形
-        Line,//画刷
-        Text,//文字
-        Arrow,//箭头
-        Light,//开关灯
-        MaxEditImage,//最大化截图
-        Revoke,//撤销
-        Save,//保存
-        Cancel,//退出截图
-        OK//完成截图
+        /// <summary>
+        /// 无状态可移动
+        /// </summary>
+        Null,
+        /// <summary>
+        /// 长方形
+        /// </summary>
+        Rectangle,
+        /// <summary>
+        /// 圆形
+        /// </summary>
+        Ellipse,
+        /// <summary>
+        /// 画刷
+        /// </summary>
+        Line,
+        /// <summary>
+        /// 文字
+        /// </summary>
+        Text,
+        /// <summary>
+        /// 箭头
+        /// </summary>
+        Arrow,
+        /// <summary>
+        /// 开关灯
+        /// </summary>
+        Light,
+        /// <summary>
+        /// 最大化截图
+        /// </summary>
+        MaxEditImage,
+        /// <summary>
+        /// 撤销
+        /// </summary>
+        Revoke,
+        /// <summary>
+        /// 保存
+        /// </summary>
+        Save,
+        /// <summary>
+        /// 退出截图
+        /// </summary>
+        Cancel,
+        /// <summary>
+        /// 完成截图
+        /// </summary>
+        OK
     }
 }
