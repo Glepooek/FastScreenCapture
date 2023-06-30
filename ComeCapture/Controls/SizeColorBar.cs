@@ -183,9 +183,13 @@ namespace ComeCapture.Controls
 
         private void ResetCanvasTop()
         {
-            CanvasTop = AppModel.Current.MaskBottomHeight >= 67 ? MainWindow.ScreenHeight - AppModel.Current.MaskBottomHeight + 32
-                : AppModel.Current.MaskTopHeight >= 67 ? AppModel.Current.MaskTopHeight - 67
-                : AppModel.Current.MaskTopHeight + 30;
+            // ImageEditBar.Height(40) 上Margin(5)
+            // ImageEditBar.Height(44) 上Margin(2)
+            // 45+46=91
+            // 40+5+2=47
+            CanvasTop = AppModel.Current.MaskBottomHeight >= 91 ? MainWindow.ScreenHeight - AppModel.Current.MaskBottomHeight + 47
+                : AppModel.Current.MaskTopHeight >= 91 ? AppModel.Current.MaskTopHeight - 91
+                : AppModel.Current.MaskTopHeight + 45;
         }
         #endregion
 

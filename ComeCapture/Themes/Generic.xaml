@@ -5,11 +5,11 @@
     xmlns:converter="clr-namespace:ComeCapture.Converters"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <SolidColorBrush x:Key="BaseColor" Color="#2ecc71" />
-    <SolidColorBrush x:Key="ToolButtonBorder" Color="#9EA0A1" />
-    <SolidColorBrush x:Key="ToolButtonHoverBackground" Color="#DEE3E9" />
+    <SolidColorBrush x:Key="BaseColor" Color="#3264FA" />
+    <SolidColorBrush x:Key="ToolButtonBorder" Color="#E5F4FE" />
+    <SolidColorBrush x:Key="ToolButtonHoverBackground" Color="#E5F4FE" />
     <SolidColorBrush x:Key="ToolColor" Color="#478cde" />
-    <SolidColorBrush x:Key="StackPanelColor" Color="#EAEEF5" />
+    <SolidColorBrush x:Key="StackPanelColor" Color="#FFFFFF" />
 
     <sys:Double x:Key="Small">2</sys:Double>
     <sys:Double x:Key="Medium">5</sys:Double>
@@ -28,7 +28,7 @@
                     <Rectangle
                         Fill="Transparent"
                         SnapsToDevicePixels="True"
-                        Stroke="LimeGreen"
+                        Stroke="{StaticResource BaseColor}"
                         StrokeThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
@@ -145,7 +145,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="1">
+                        CornerRadius="2">
                         <ContentControl Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
                     </Border>
                     <ControlTemplate.Triggers>
@@ -169,8 +169,8 @@
         TargetType="{x:Type control:ToolButton}"
         BasedOn="{StaticResource BaseButton}">
         <Setter Property="Margin" Value="3" />
-        <Setter Property="Width" Value="24" />
-        <Setter Property="Height" Value="19" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
         <Setter Property="IsImageEditBar" Value="True" />
         <Setter Property="GroupName" Value="Tools" />
     </Style>
@@ -180,7 +180,7 @@
         x:Key="SizeButton"
         TargetType="{x:Type control:ToolButton}"
         BasedOn="{StaticResource BaseButton}">
-        <Setter Property="Margin" Value="1,5" />
+        <Setter Property="Margin" Value="8,0,0,0" />
         <Setter Property="Width" Value="24" />
         <Setter Property="Height" Value="25" />
     </Style>
@@ -219,16 +219,251 @@
         </Setter>
     </Style>
 
+    <!--  矩形工具按钮  -->
+    <Style
+        x:Key="RectangleToolButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="Rectangle" />
+        <Setter Property="ToolTip" Value="矩形工具" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="20"
+                    Height="20"
+                    Source="/ComeCapture;component/Resources/矩形工具.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="20"
+                            Height="20"
+                            Source="/ComeCapture;component/Resources/矩形工具_checked.png" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  椭圆工具按钮  -->
+    <Style
+        x:Key="EllipseToolButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="Ellipse" />
+        <Setter Property="ToolTip" Value="椭圆工具" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="20"
+                    Height="20"
+                    Source="/ComeCapture;component/Resources/椭圆工具.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="20"
+                            Height="20"
+                            Source="/ComeCapture;component/Resources/椭圆工具_checked.png" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  箭头工具按钮  -->
+    <Style
+        x:Key="ArrowToolButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="Arrow" />
+        <Setter Property="ToolTip" Value="箭头工具" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="20"
+                    Height="20"
+                    Source="/ComeCapture;component/Resources/箭头工具.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="20"
+                            Height="20"
+                            Source="/ComeCapture;component/Resources/箭头工具_checked.png" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  画刷工具按钮  -->
+    <Style
+        x:Key="PenToolButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="Line" />
+        <Setter Property="ToolTip" Value="画刷工具" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="20"
+                    Height="20"
+                    Source="/ComeCapture;component/Resources/画刷工具.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="20"
+                            Height="20"
+                            Source="/ComeCapture;component/Resources/画刷工具_checked.png" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  文字工具按钮  -->
+    <Style
+        x:Key="TextToolButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="Text" />
+        <Setter Property="ToolTip" Value="文字工具" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="20"
+                    Height="20"
+                    Source="/ComeCapture;component/Resources/文字工具.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="20"
+                            Height="20"
+                            Source="/ComeCapture;component/Resources/文字工具_checked.png" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  还原按钮  -->
+    <Style
+        x:Key="RevokeButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="Revoke" />
+        <Setter Property="ToolTip" Value="还原" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="20"
+                    Height="20"
+                    Source="/ComeCapture;component/Resources/还原.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="20"
+                            Height="20"
+                            Source="/ComeCapture;component/Resources/还原_checked.png" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  保存按钮  -->
+    <Style
+        x:Key="SaveButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="Save" />
+        <Setter Property="ToolTip" Value="保存" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="22"
+                    Height="22"
+                    Source="/ComeCapture;component/Resources/保存.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="22"
+                            Height="22"
+                            Source="/ComeCapture;component/Resources/保存_checked.png" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  关灯按钮  -->
+    <Style
+        x:Key="LightOffButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="Light" />
+        <Setter Property="ToolTip" Value="关灯" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="20"
+                    Height="20"
+                    Source="/ComeCapture;component/Resources/关灯.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="20"
+                            Height="20"
+                            Source="/ComeCapture;component/Resources/关灯_checked.png" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="开灯" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!--  最大化还原按钮  -->
     <Style
         x:Key="MaxMinButton"
         TargetType="{x:Type control:ToolButton}"
         BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="MaxEditImage" />
+        <Setter Property="ToolTip" Value="最大化" />
         <Setter Property="Content">
             <Setter.Value>
                 <Image
-                    Width="16"
-                    Height="16"
+                    Width="20"
+                    Height="20"
                     Source="/ComeCapture;component/Resources/最大化.png" />
             </Setter.Value>
         </Setter>
@@ -237,9 +472,39 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <Image
-                            Width="16"
-                            Height="16"
-                            Source="/ComeCapture;component/Resources/最小化.png" />
+                            Width="20"
+                            Height="20"
+                            Source="/ComeCapture;component/Resources/还原.png" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ToolTip" Value="还原" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  退出按钮  -->
+    <Style
+        x:Key="CancelButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="Cancel" />
+        <Setter Property="ToolTip" Value="退出" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="22"
+                    Height="22"
+                    Source="/ComeCapture;component/Resources/退出.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="22"
+                            Height="22"
+                            Source="/ComeCapture;component/Resources/退出_checked.png" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -248,8 +513,8 @@
 
     <!--  工具栏  -->
     <Style TargetType="{x:Type control:ImageEditBar}">
-        <Setter Property="Width" Value="330" />
-        <Setter Property="Height" Value="25" />
+        <Setter Property="Width" Value="398" />
+        <Setter Property="Height" Value="40" />
         <Setter Property="Visibility" Value="Collapsed" />
         <Setter Property="Background" Value="{StaticResource StackPanelColor}" />
         <Setter Property="Cursor" Value="Arrow" />
@@ -258,123 +523,39 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type control:ImageEditBar}">
-                    <StackPanel
-                        Orientation="Horizontal"
-                        Width="{TemplateBinding Width}"
-                        Height="{TemplateBinding Height}"
-                        Background="{TemplateBinding Background}">
-                        <control:ToolButton
-                            Tool="Rectangle"
-                            ToolTip="矩形工具"
-                            Style="{StaticResource ToolButton}">
-                            <Rectangle
-                                Width="17"
-                                Height="14"
-                                Stroke="{StaticResource ToolColor}"
-                                StrokeThickness="2"
-                                Fill="White" />
-                        </control:ToolButton>
-                        <control:ToolButton
-                            Tool="Ellipse"
-                            ToolTip="椭圆工具"
-                            Style="{StaticResource ToolButton}">
-                            <Ellipse
-                                Width="17"
-                                Height="14"
-                                Stroke="{StaticResource ToolColor}"
-                                StrokeThickness="2"
-                                Fill="White" />
-                        </control:ToolButton>
-                        <control:ToolButton
-                            Tool="Arrow"
-                            ToolTip="箭头工具"
-                            Style="{StaticResource ToolButton}">
-                            <Image
-                                Width="18"
-                                Height="15"
-                                Source="/ComeCapture;component/Resources/箭头.png" />
-                        </control:ToolButton>
-                        <control:ToolButton
-                            Tool="Line"
-                            ToolTip="画刷工具"
-                            Style="{StaticResource ToolButton}">
-                            <Image
-                                Width="18"
-                                Height="15"
-                                Source="/ComeCapture;component/Resources/笔刷.png" />
-                        </control:ToolButton>
-                        <control:ToolButton
-                            Tool="Text"
-                            ToolTip="文字工具"
-                            Style="{StaticResource ToolButton}">
-                            <TextBlock
-                                Text="A"
-                                FontSize="19"
-                                TextAlignment="Center"
-                                Margin="0,-4,0,0"
-                                FontWeight="Bold"
-                                Foreground="{StaticResource ToolColor}" />
-                        </control:ToolButton>
-                        <control:ToolButton
-                            Tool="Revoke"
-                            ToolTip="撤销编辑"
-                            Style="{StaticResource ToolButton}">
-                            <Image
-                                Margin="0,-1,0,1"
-                                Width="18"
-                                Height="15"
-                                Source="/ComeCapture;component/Resources/后退.png" />
-                        </control:ToolButton>
-                        <control:ToolButton
-                            Tool="Save"
-                            ToolTip="保存"
-                            Style="{StaticResource ToolButton}">
-                            <Image
-                                Margin="0,1,0,-1"
-                                Width="18"
-                                Height="15"
-                                Source="/ComeCapture;component/Resources/保存.png" />
-                        </control:ToolButton>
-                        <control:ToolButton
-                            Tool="Light"
-                            ToolTip="开关灯"
-                            Style="{StaticResource ToolButton}">
-                            <Image
-                                Width="16"
-                                Height="16"
-                                Source="/ComeCapture;component/Resources/灯.png" />
-                        </control:ToolButton>
-                        <control:ToolButton
-                            Tool="MaxEditImage"
-                            ToolTip="最大化"
-                            Style="{StaticResource MaxMinButton}" />
-                        <control:ToolButton
-                            Tool="Cancel"
-                            ToolTip="退出截图"
-                            Style="{StaticResource ToolButton}">
-                            <Grid Width="17" Height="14">
-                                <Path
-                                    Stroke="Red"
-                                    StrokeThickness="4"
-                                    Data="M 4,2 L 15,13" />
-                                <Path
-                                    Stroke="Red"
-                                    StrokeThickness="4"
-                                    Data="M 4,13 L 15,2" />
-                            </Grid>
-                        </control:ToolButton>
-                        <control:ToolButton
-                            Tool="OK"
-                            ToolTip="完成截图"
-                            Style="{StaticResource ToolButton}">
-                            <Grid Width="17" Height="14">
-                                <Path
-                                    Stroke="Green"
-                                    StrokeThickness="4"
-                                    Data="M 2,7 L 7,12 L 16,2" />
-                            </Grid>
-                        </control:ToolButton>
-                    </StackPanel>
+                    <Border
+                        CornerRadius="6"
+                        BorderBrush="{StaticResource StackPanelColor}"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="1">
+                        <UniformGrid
+                            Columns="9"
+                            Rows="1"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}">
+                            <control:ToolButton Style="{StaticResource RectangleToolButton}" />
+                            <control:ToolButton Style="{StaticResource EllipseToolButton}" />
+                            <control:ToolButton Style="{StaticResource ArrowToolButton}" />
+                            <control:ToolButton Style="{StaticResource PenToolButton}" />
+                            <control:ToolButton Style="{StaticResource TextToolButton}" />
+                            <control:ToolButton Style="{StaticResource RevokeButton}" />
+                            <!--<control:ToolButton Style="{StaticResource SaveButton}" />-->
+                            <control:ToolButton Style="{StaticResource LightOffButton}" />
+                            <control:ToolButton Style="{StaticResource MaxMinButton}" />
+                            <control:ToolButton Style="{StaticResource CancelButton}" />
+                            <!--<control:ToolButton
+                                Tool="OK"
+                                ToolTip="完成截图"
+                                Style="{StaticResource ToolButton}">
+                                <Grid Width="17" Height="14">
+                                    <Path
+                                        Stroke="Green"
+                                        StrokeThickness="4"
+                                        Data="M 2,7 L 7,12 L 16,2" />
+                                </Grid>
+                            </control:ToolButton>-->
+                        </UniformGrid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -382,11 +563,10 @@
 
     <!--  尺寸颜色栏基础样式  -->
     <Style x:Key="BaseSizeColor" TargetType="{x:Type StackPanel}">
-        <Setter Property="Width" Value="270" />
-        <Setter Property="Height" Value="35" />
+        <Setter Property="Width" Value="305" />
+        <Setter Property="Height" Value="44" />
         <Setter Property="Orientation" Value="Horizontal" />
         <Setter Property="Visibility" Value="Collapsed" />
-        <Setter Property="Background" Value="{StaticResource StackPanelColor}" />
     </Style>
 
     <!--  颜色板Item  -->
@@ -412,7 +592,7 @@
                     <UniformGrid
                         Rows="2"
                         Columns="9"
-                        Height="32" />
+                        Height="36" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
@@ -422,318 +602,324 @@
     <Style TargetType="{x:Type control:SizeColorBar}">
         <Setter Property="Canvas.Left" Value="{Binding RelativeSource={RelativeSource Self}, Path=CanvasLeft}" />
         <Setter Property="Canvas.Top" Value="{Binding RelativeSource={RelativeSource Self}, Path=CanvasTop}" />
+        <Setter Property="Background" Value="{StaticResource StackPanelColor}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type control:SizeColorBar}">
-                    <Grid>
+                    <Border
+                        CornerRadius="6"
+                        BorderBrush="{TemplateBinding Background}"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="1">
+                        <Grid>
 
-                        <control:RectangleTool
-                            x:Name="PART_RectangleTool"
-                            Style="{StaticResource BaseSizeColor}"
-                            Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Rectangle}">
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="RectangleTool"
-                                IsChecked="{Binding ElementName=PART_RectangleTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Small}}">
-                                <Ellipse
-                                    Width="{StaticResource Small}"
-                                    Height="{StaticResource Small}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="RectangleTool"
-                                IsChecked="{Binding ElementName=PART_RectangleTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Medium}}">
-                                <Ellipse
-                                    Width="{StaticResource Medium}"
-                                    Height="{StaticResource Medium}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="RectangleTool"
-                                IsChecked="{Binding ElementName=PART_RectangleTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Large}}">
-                                <Ellipse
-                                    Width="{StaticResource Large}"
-                                    Height="{StaticResource Large}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-                            <Grid
-                                Background="White"
-                                Width="29"
-                                Height="29"
-                                Margin="5,0,5,0">
-                                <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
-                                    <Canvas
-                                        Width="25"
-                                        Height="25"
-                                        Background="{Binding ElementName=PART_RectangleTool, Path=LineBrush}" />
+                            <control:RectangleTool
+                                x:Name="PART_RectangleTool"
+                                Style="{StaticResource BaseSizeColor}"
+                                Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Rectangle}">
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="RectangleTool"
+                                    IsChecked="{Binding ElementName=PART_RectangleTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Small}}">
+                                    <Ellipse
+                                        Width="{StaticResource Small}"
+                                        Height="{StaticResource Small}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="RectangleTool"
+                                    IsChecked="{Binding ElementName=PART_RectangleTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Medium}}">
+                                    <Ellipse
+                                        Width="{StaticResource Medium}"
+                                        Height="{StaticResource Medium}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="RectangleTool"
+                                    IsChecked="{Binding ElementName=PART_RectangleTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Large}}">
+                                    <Ellipse
+                                        Width="{StaticResource Large}"
+                                        Height="{StaticResource Large}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <Grid
+                                    Background="White"
+                                    Width="36"
+                                    Height="36"
+                                    Margin="10,0">
+                                    <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
+                                        <Canvas
+                                            Width="32"
+                                            Height="32"
+                                            Background="{Binding ElementName=PART_RectangleTool, Path=LineBrush}" />
+                                    </Border>
+                                </Grid>
+                                <ListBox Style="{StaticResource ColorBarStyle}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <control:ToolButton
+                                                Style="{StaticResource ColorButton}"
+                                                GroupName="RectangleColor"
+                                                LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
+                                                <Rectangle
+                                                    Width="14"
+                                                    Height="14"
+                                                    Stroke="{StaticResource ToolButtonBorder}"
+                                                    StrokeThickness="1"
+                                                    Fill="{Binding}" />
+                                            </control:ToolButton>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </control:RectangleTool>
+
+                            <control:EllipseTool
+                                x:Name="PART_EllipseTool"
+                                Style="{StaticResource BaseSizeColor}"
+                                Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Ellipse}">
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="EllipseTool"
+                                    IsChecked="{Binding ElementName=PART_EllipseTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Small}}">
+                                    <Ellipse
+                                        Width="{StaticResource Small}"
+                                        Height="{StaticResource Small}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="EllipseTool"
+                                    IsChecked="{Binding ElementName=PART_EllipseTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Medium}}">
+                                    <Ellipse
+                                        Width="{StaticResource Medium}"
+                                        Height="{StaticResource Medium}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="EllipseTool"
+                                    IsChecked="{Binding ElementName=PART_EllipseTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Large}}">
+                                    <Ellipse
+                                        Width="{StaticResource Large}"
+                                        Height="{StaticResource Large}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <Grid
+                                    Background="White"
+                                    Width="36"
+                                    Height="36"
+                                    Margin="10,0">
+                                    <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
+                                        <Canvas
+                                            Width="32"
+                                            Height="32"
+                                            Background="{Binding ElementName=PART_EllipseTool, Path=LineBrush}" />
+                                    </Border>
+                                </Grid>
+                                <ListBox Style="{StaticResource ColorBarStyle}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <control:ToolButton
+                                                Style="{StaticResource ColorButton}"
+                                                GroupName="EllipseColor"
+                                                LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
+                                                <Rectangle
+                                                    Width="14"
+                                                    Height="14"
+                                                    Stroke="{StaticResource ToolButtonBorder}"
+                                                    StrokeThickness="1"
+                                                    Fill="{Binding}" />
+                                            </control:ToolButton>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </control:EllipseTool>
+
+                            <control:ArrowTool
+                                x:Name="PART_ArrowTool"
+                                Style="{StaticResource BaseSizeColor}"
+                                Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Arrow}">
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="ArrowTool"
+                                    IsChecked="{Binding ElementName=PART_ArrowTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Small}}">
+                                    <Ellipse
+                                        Width="{StaticResource Small}"
+                                        Height="{StaticResource Small}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="ArrowTool"
+                                    IsChecked="{Binding ElementName=PART_ArrowTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Medium}}">
+                                    <Ellipse
+                                        Width="{StaticResource Medium}"
+                                        Height="{StaticResource Medium}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="ArrowTool"
+                                    IsChecked="{Binding ElementName=PART_ArrowTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Large}}">
+                                    <Ellipse
+                                        Width="{StaticResource Large}"
+                                        Height="{StaticResource Large}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <Grid
+                                    Background="White"
+                                    Width="36"
+                                    Height="36"
+                                    Margin="10,0">
+                                    <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
+                                        <Canvas
+                                            Width="32"
+                                            Height="32"
+                                            Background="{Binding ElementName=PART_ArrowTool, Path=LineBrush}" />
+                                    </Border>
+                                </Grid>
+                                <ListBox Style="{StaticResource ColorBarStyle}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <control:ToolButton
+                                                Style="{StaticResource ColorButton}"
+                                                GroupName="ArrowColor"
+                                                LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
+                                                <Rectangle
+                                                    Width="14"
+                                                    Height="14"
+                                                    Stroke="{StaticResource ToolButtonBorder}"
+                                                    StrokeThickness="1"
+                                                    Fill="{Binding}" />
+                                            </control:ToolButton>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </control:ArrowTool>
+
+                            <control:LineTool
+                                x:Name="PART_LineTool"
+                                Style="{StaticResource BaseSizeColor}"
+                                Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Line}">
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="LineTool"
+                                    IsChecked="{Binding ElementName=PART_LineTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Small}}">
+                                    <Ellipse
+                                        Width="{StaticResource Small}"
+                                        Height="{StaticResource Small}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="LineTool"
+                                    IsChecked="{Binding ElementName=PART_LineTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Medium}}">
+                                    <Ellipse
+                                        Width="{StaticResource Medium}"
+                                        Height="{StaticResource Medium}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <control:ToolButton
+                                    Style="{StaticResource SizeButton}"
+                                    GroupName="LineTool"
+                                    IsChecked="{Binding ElementName=PART_LineTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Large}}">
+                                    <Ellipse
+                                        Width="{StaticResource Large}"
+                                        Height="{StaticResource Large}"
+                                        Fill="{StaticResource ToolColor}" />
+                                </control:ToolButton>
+                                <Grid
+                                    Background="White"
+                                    Width="36"
+                                    Height="36"
+                                    Margin="10,0">
+                                    <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
+                                        <Canvas
+                                            Width="32"
+                                            Height="32"
+                                            Background="{Binding ElementName=PART_LineTool, Path=LineBrush}" />
+                                    </Border>
+                                </Grid>
+                                <ListBox Style="{StaticResource ColorBarStyle}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <control:ToolButton
+                                                Style="{StaticResource ColorButton}"
+                                                GroupName="LineColor"
+                                                LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
+                                                <Rectangle
+                                                    Width="14"
+                                                    Height="14"
+                                                    Stroke="{StaticResource ToolButtonBorder}"
+                                                    StrokeThickness="1"
+                                                    Fill="{Binding}" />
+                                            </control:ToolButton>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </control:LineTool>
+
+                            <control:TextTool
+                                x:Name="PART_TextTool"
+                                Style="{StaticResource BaseSizeColor}"
+                                Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Text}">
+                                <Border
+                                    Width="24"
+                                    Height="30"
+                                    Margin="10,0,0,0">
+                                    <TextBlock
+                                        Text="A"
+                                        FontSize="{Binding ElementName=PART_TextTool, Path=FontSize}"
+                                        TextAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource BaseColor}" />
                                 </Border>
-                            </Grid>
-                            <ListBox Style="{StaticResource ColorBarStyle}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <control:ToolButton
-                                            Style="{StaticResource ColorButton}"
-                                            GroupName="RectangleColor"
-                                            LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
-                                            <Rectangle
-                                                Width="12"
-                                                Height="12"
-                                                Stroke="{StaticResource ToolButtonBorder}"
-                                                StrokeThickness="1"
-                                                Fill="{Binding}" />
-                                        </control:ToolButton>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </control:RectangleTool>
+                                <ComboBox
+                                    Style="{x:Null}"
+                                    Margin="15,0,5,0"
+                                    Height="21"
+                                    Width="42"
+                                    SelectedItem="12"
+                                    DisplayMemberPath="Key"
+                                    SelectedValuePath="Key"
+                                    ItemsSource="{x:Static control:TextTool.FontSizes}"
+                                    SelectedValue="{Binding ElementName=PART_TextTool, Path=FontSize}" />
+                                <Grid
+                                    Background="White"
+                                    Width="36"
+                                    Height="36"
+                                    Margin="10,0">
+                                    <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
+                                        <Canvas
+                                            Width="32"
+                                            Height="32"
+                                            Background="{Binding ElementName=PART_TextTool, Path=LineBrush}" />
+                                    </Border>
+                                </Grid>
+                                <ListBox Style="{StaticResource ColorBarStyle}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <control:ToolButton
+                                                Style="{StaticResource ColorButton}"
+                                                GroupName="TextColor"
+                                                LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
+                                                <Rectangle
+                                                    Width="14"
+                                                    Height="14"
+                                                    Stroke="{StaticResource ToolButtonBorder}"
+                                                    StrokeThickness="1"
+                                                    Fill="{Binding}" />
+                                            </control:ToolButton>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </control:TextTool>
 
-                        <control:EllipseTool
-                            x:Name="PART_EllipseTool"
-                            Style="{StaticResource BaseSizeColor}"
-                            Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Ellipse}">
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="EllipseTool"
-                                IsChecked="{Binding ElementName=PART_EllipseTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Small}}">
-                                <Ellipse
-                                    Width="{StaticResource Small}"
-                                    Height="{StaticResource Small}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="EllipseTool"
-                                IsChecked="{Binding ElementName=PART_EllipseTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Medium}}">
-                                <Ellipse
-                                    Width="{StaticResource Medium}"
-                                    Height="{StaticResource Medium}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="EllipseTool"
-                                IsChecked="{Binding ElementName=PART_EllipseTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Large}}">
-                                <Ellipse
-                                    Width="{StaticResource Large}"
-                                    Height="{StaticResource Large}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-
-                            <Grid
-                                Background="White"
-                                Width="29"
-                                Height="29"
-                                Margin="5,0">
-                                <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
-                                    <Canvas
-                                        Width="25"
-                                        Height="25"
-                                        Background="{Binding ElementName=PART_EllipseTool, Path=LineBrush}" />
-                                </Border>
-                            </Grid>
-                            <ListBox Style="{StaticResource ColorBarStyle}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <control:ToolButton
-                                            Style="{StaticResource ColorButton}"
-                                            GroupName="EllipseColor"
-                                            LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
-                                            <Rectangle
-                                                Width="12"
-                                                Height="12"
-                                                Stroke="{StaticResource ToolButtonBorder}"
-                                                StrokeThickness="1"
-                                                Fill="{Binding}" />
-                                        </control:ToolButton>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </control:EllipseTool>
-
-                        <control:ArrowTool
-                            x:Name="PART_ArrowTool"
-                            Style="{StaticResource BaseSizeColor}"
-                            Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Arrow}">
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="ArrowTool"
-                                IsChecked="{Binding ElementName=PART_ArrowTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Small}}">
-                                <Ellipse
-                                    Width="{StaticResource Small}"
-                                    Height="{StaticResource Small}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="ArrowTool"
-                                IsChecked="{Binding ElementName=PART_ArrowTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Medium}}">
-                                <Ellipse
-                                    Width="{StaticResource Medium}"
-                                    Height="{StaticResource Medium}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="ArrowTool"
-                                IsChecked="{Binding ElementName=PART_ArrowTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Large}}">
-                                <Ellipse
-                                    Width="{StaticResource Large}"
-                                    Height="{StaticResource Large}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-
-                            <Grid
-                                Background="White"
-                                Width="29"
-                                Height="29"
-                                Margin="5,0">
-                                <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
-                                    <Canvas
-                                        Width="25"
-                                        Height="25"
-                                        Background="{Binding ElementName=PART_ArrowTool, Path=LineBrush}" />
-                                </Border>
-                            </Grid>
-                            <ListBox Style="{StaticResource ColorBarStyle}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <control:ToolButton
-                                            Style="{StaticResource ColorButton}"
-                                            GroupName="ArrowColor"
-                                            LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
-                                            <Rectangle
-                                                Width="12"
-                                                Height="12"
-                                                Stroke="{StaticResource ToolButtonBorder}"
-                                                StrokeThickness="1"
-                                                Fill="{Binding}" />
-                                        </control:ToolButton>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </control:ArrowTool>
-
-                        <control:LineTool
-                            x:Name="PART_LineTool"
-                            Style="{StaticResource BaseSizeColor}"
-                            Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Line}">
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="LineTool"
-                                IsChecked="{Binding ElementName=PART_LineTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Small}}">
-                                <Ellipse
-                                    Width="{StaticResource Small}"
-                                    Height="{StaticResource Small}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="LineTool"
-                                IsChecked="{Binding ElementName=PART_LineTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Medium}}">
-                                <Ellipse
-                                    Width="{StaticResource Medium}"
-                                    Height="{StaticResource Medium}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-                            <control:ToolButton
-                                Style="{StaticResource SizeButton}"
-                                GroupName="LineTool"
-                                IsChecked="{Binding ElementName=PART_LineTool, Path=LineThickness, Converter={StaticResource SizeConverter}, ConverterParameter={StaticResource Large}}">
-                                <Ellipse
-                                    Width="{StaticResource Large}"
-                                    Height="{StaticResource Large}"
-                                    Fill="{StaticResource ToolColor}" />
-                            </control:ToolButton>
-
-                            <Grid
-                                Background="White"
-                                Width="29"
-                                Height="29"
-                                Margin="5,0">
-                                <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
-                                    <Canvas
-                                        Width="25"
-                                        Height="25"
-                                        Background="{Binding ElementName=PART_LineTool, Path=LineBrush}" />
-                                </Border>
-                            </Grid>
-                            <ListBox Style="{StaticResource ColorBarStyle}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <control:ToolButton
-                                            Style="{StaticResource ColorButton}"
-                                            GroupName="LineColor"
-                                            LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
-                                            <Rectangle
-                                                Width="12"
-                                                Height="12"
-                                                Stroke="{StaticResource ToolButtonBorder}"
-                                                StrokeThickness="1"
-                                                Fill="{Binding}" />
-                                        </control:ToolButton>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </control:LineTool>
-
-                        <control:TextTool
-                            x:Name="PART_TextTool"
-                            Style="{StaticResource BaseSizeColor}"
-                            Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:SizeColorBar}, Path=Selected, Converter={StaticResource ToolConverter}, ConverterParameter=Text}">
-                            <TextBlock
-                                Width="24"
-                                Height="30"
-                                Text="A"
-                                FontSize="23"
-                                TextAlignment="Center"
-                                Margin="3,2"
-                                FontWeight="Bold"
-                                Foreground="{StaticResource ToolColor}" />
-                            <ComboBox
-                                Style="{x:Null}"
-                                Margin="0,7,6,7"
-                                Height="21"
-                                Width="42"
-                                SelectedItem="12"
-                                DisplayMemberPath="Key"
-                                SelectedValuePath="Key"
-                                ItemsSource="{x:Static control:TextTool.FontSizes}"
-                                SelectedValue="{Binding ElementName=PART_TextTool, Path=FontSize}" />
-
-                            <Grid
-                                Background="White"
-                                Width="29"
-                                Height="29"
-                                Margin="5,0">
-                                <Border BorderBrush="{StaticResource ToolButtonBorder}" BorderThickness="1">
-                                    <Canvas
-                                        Width="25"
-                                        Height="25"
-                                        Background="{Binding ElementName=PART_TextTool, Path=LineBrush}" />
-                                </Border>
-                            </Grid>
-                            <ListBox Style="{StaticResource ColorBarStyle}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <control:ToolButton
-                                            Style="{StaticResource ColorButton}"
-                                            GroupName="TextColor"
-                                            LineColor="{Binding ., Converter={StaticResource ColorConverter}}">
-                                            <Rectangle
-                                                Width="12"
-                                                Height="12"
-                                                Stroke="{StaticResource ToolButtonBorder}"
-                                                StrokeThickness="1"
-                                                Fill="{Binding}" />
-                                        </control:ToolButton>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </control:TextTool>
-
-                    </Grid>
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

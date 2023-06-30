@@ -116,10 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\保存.png" />
-    <Resource Include="Resources\后退.png" />
-    <Resource Include="Resources\笔刷.png" />
-    <Resource Include="Resources\箭头.png" />
-    <Resource Include="Resources\设置.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xaml">
@@ -141,13 +137,40 @@
     <Resource Include="cut.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\灯.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\最大化.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\最小化.png" />
+    <Resource Include="Resources\还原.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\关灯.png" />
+    <Resource Include="Resources\关灯_checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\还原_checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\保存_checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\文字工具.png" />
+    <Resource Include="Resources\文字工具_checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\画刷工具.png" />
+    <Resource Include="Resources\画刷工具_checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\椭圆工具.png" />
+    <Resource Include="Resources\椭圆工具_checked.png" />
+    <Resource Include="Resources\矩形工具.png" />
+    <Resource Include="Resources\矩形工具_checked.png" />
+    <Resource Include="Resources\箭头工具.png" />
+    <Resource Include="Resources\箭头工具_checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\退出.png" />
+    <Resource Include="Resources\退出_checked.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

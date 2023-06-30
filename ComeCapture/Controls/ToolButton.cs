@@ -32,10 +32,13 @@ namespace ComeCapture.Controls
                         MainWindow.Current.OnOK();
                         break;
                     case Tool.Light:
+                        IsChecked = !IsChecked;
+                        SizeColorBar.Current.Selected = Tool.Null;
                         MainWindow.Current.OnTurnOnLight();
                         break;
                     case Tool.MaxEditImage:
                         IsChecked = !IsChecked;
+                        SizeColorBar.Current.Selected = Tool.Null;
                         MainWindow.Current.OnMaxMainImage();
                         break;
                     default:
