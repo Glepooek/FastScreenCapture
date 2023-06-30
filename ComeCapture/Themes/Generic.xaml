@@ -393,13 +393,13 @@
         </Style.Triggers>
     </Style>
 
-    <!--  保存按钮  -->
+    <!--  保存截图按钮  -->
     <Style
         x:Key="SaveButton"
         TargetType="{x:Type control:ToolButton}"
         BasedOn="{StaticResource ToolButton}">
         <Setter Property="Tool" Value="Save" />
-        <Setter Property="ToolTip" Value="保存" />
+        <Setter Property="ToolTip" Value="保存截图" />
         <Setter Property="Content">
             <Setter.Value>
                 <Image
@@ -432,8 +432,8 @@
         <Setter Property="Content">
             <Setter.Value>
                 <Image
-                    Width="20"
-                    Height="20"
+                    Width="22"
+                    Height="22"
                     Source="/ComeCapture;component/Resources/关灯.png" />
             </Setter.Value>
         </Setter>
@@ -442,8 +442,8 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <Image
-                            Width="20"
-                            Height="20"
+                            Width="22"
+                            Height="22"
                             Source="/ComeCapture;component/Resources/关灯_checked.png" />
                     </Setter.Value>
                 </Setter>
@@ -492,8 +492,8 @@
         <Setter Property="Content">
             <Setter.Value>
                 <Image
-                    Width="22"
-                    Height="22"
+                    Width="20"
+                    Height="20"
                     Source="/ComeCapture;component/Resources/退出.png" />
             </Setter.Value>
         </Setter>
@@ -502,9 +502,38 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <Image
-                            Width="22"
-                            Height="22"
+                            Width="20"
+                            Height="20"
                             Source="/ComeCapture;component/Resources/退出_checked.png" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  完成截图按钮  -->
+    <Style
+        x:Key="OKButton"
+        TargetType="{x:Type control:ToolButton}"
+        BasedOn="{StaticResource ToolButton}">
+        <Setter Property="Tool" Value="OK" />
+        <Setter Property="ToolTip" Value="完成截图" />
+        <Setter Property="Content">
+            <Setter.Value>
+                <Image
+                    Width="20"
+                    Height="20"
+                    Source="/ComeCapture;component/Resources/确定.png" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <Image
+                            Width="20"
+                            Height="20"
+                            Source="/ComeCapture;component/Resources/确定_checked.png" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -529,7 +558,7 @@
                         Background="{TemplateBinding Background}"
                         BorderThickness="1">
                         <UniformGrid
-                            Columns="9"
+                            Columns="11"
                             Rows="1"
                             Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}">
@@ -539,21 +568,11 @@
                             <control:ToolButton Style="{StaticResource PenToolButton}" />
                             <control:ToolButton Style="{StaticResource TextToolButton}" />
                             <control:ToolButton Style="{StaticResource RevokeButton}" />
-                            <!--<control:ToolButton Style="{StaticResource SaveButton}" />-->
+                            <control:ToolButton Style="{StaticResource SaveButton}" />
                             <control:ToolButton Style="{StaticResource LightOffButton}" />
                             <control:ToolButton Style="{StaticResource MaxMinButton}" />
                             <control:ToolButton Style="{StaticResource CancelButton}" />
-                            <!--<control:ToolButton
-                                Tool="OK"
-                                ToolTip="完成截图"
-                                Style="{StaticResource ToolButton}">
-                                <Grid Width="17" Height="14">
-                                    <Path
-                                        Stroke="Green"
-                                        StrokeThickness="4"
-                                        Data="M 2,7 L 7,12 L 16,2" />
-                                </Grid>
-                            </control:ToolButton>-->
+                            <control:ToolButton Style="{StaticResource OKButton}" />
                         </UniformGrid>
                     </Border>
                 </ControlTemplate>
