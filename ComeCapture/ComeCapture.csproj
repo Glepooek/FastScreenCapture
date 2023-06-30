@@ -176,5 +176,8 @@
     <Resource Include="Resources\确定.png" />
     <Resource Include="Resources\确定_checked.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\最大化_checked.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -474,7 +474,7 @@
                         <Image
                             Width="20"
                             Height="20"
-                            Source="/ComeCapture;component/Resources/还原.png" />
+                            Source="/ComeCapture;component/Resources/最大化_checked.png" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="ToolTip" Value="还原" />
