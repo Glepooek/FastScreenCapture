@@ -140,14 +140,14 @@
     <Resource Include="Resources\最大化.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\还原.png" />
+    <Resource Include="Resources\撤回.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\关灯.png" />
     <Resource Include="Resources\关灯_checked.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\还原_checked.png" />
+    <Resource Include="Resources\撤回_checked.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\保存_checked.png" />
@@ -157,8 +157,8 @@
     <Resource Include="Resources\文字工具_checked.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\画刷工具.png" />
-    <Resource Include="Resources\画刷工具_checked.png" />
+    <Resource Include="Resources\画笔工具.png" />
+    <Resource Include="Resources\画笔工具_checked.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\椭圆工具.png" />
