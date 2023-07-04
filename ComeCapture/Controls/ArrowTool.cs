@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ComeCapture.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,8 +9,6 @@ namespace ComeCapture.Controls
 {
     public class ArrowTool : StackPanel
     {
-        private StreamGeometry geometry = new StreamGeometry();
-
         static ArrowTool()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ArrowTool), new FrameworkPropertyMetadata(typeof(ArrowTool)));
@@ -37,11 +36,11 @@ namespace ComeCapture.Controls
             return new List<Point>()
             {
                 start,
-                new Point(X0 + 0.25 * (X1 - X0), Y0 + 0.25 * (Y1 - Y0)),
-                new Point(X0, Y0),
+                point2,
+                point3,
                 end,
-                new Point(X1, Y1),
-                new Point(X0 + 0.75 * (X1 - X0), Y0 + 0.75 * (Y1 - Y0)),
+                point5,
+                point4,
                 start
             };
         }
@@ -91,7 +90,7 @@ namespace ComeCapture.Controls
 
         public static readonly DependencyProperty LineBrushProperty =
                 DependencyProperty.Register("LineBrush", typeof(SolidColorBrush), typeof(ArrowTool),
-                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(OnLineBrushPropertyChanged)));
+                new PropertyMetadata(ColorBrushHelper.GenerateDefaultColorBrush(), new PropertyChangedCallback(OnLineBrushPropertyChanged)));
 
         private static void OnLineBrushPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {

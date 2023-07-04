@@ -11,7 +11,7 @@
         /// </summary>
         Rectangle,
         /// <summary>
-        /// 圆形
+        /// 椭圆
         /// </summary>
         Ellipse,
         /// <summary>
@@ -35,7 +35,7 @@
         /// </summary>
         MaxEditImage,
         /// <summary>
-        /// 撤销
+        /// 撤回
         /// </summary>
         Revoke,
         /// <summary>

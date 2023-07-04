@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ComeCapture.Helpers;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -61,7 +62,7 @@ namespace ComeCapture.Controls
 
         public static readonly DependencyProperty LineBrushProperty =
                 DependencyProperty.Register("LineBrush", typeof(SolidColorBrush), typeof(LineTool),
-                new PropertyMetadata(new SolidColorBrush(Colors.Red), new PropertyChangedCallback(OnLineBrushPropertyChanged)));
+                new PropertyMetadata(ColorBrushHelper.GenerateDefaultColorBrush(), new PropertyChangedCallback(OnLineBrushPropertyChanged)));
 
         private static void OnLineBrushPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {

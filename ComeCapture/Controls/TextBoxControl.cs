@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ComeCapture.Helpers;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -7,7 +8,7 @@ namespace ComeCapture.Controls
     [TemplatePart(Name = "PART_TextBox", Type = typeof(TextBox))]
     public class TextBoxControl : Control
     {
-        public TextBox _TextBox;
+        private TextBox _TextBox;
 
         static TextBoxControl()
         {
@@ -23,6 +24,14 @@ namespace ComeCapture.Controls
             AddHandler(LostFocusEvent, new RoutedEventHandler((sender, e) =>
             {
                 MyFocus = false;
+                TouchKeyboardHelper.CloseTaptip();
+            }));
+            AddHandler(TouchDownEvent, new RoutedEventHandler((sender, e) =>
+            {
+                if (MyFocus)
+                {
+                    TouchKeyboardHelper.ShowTaptip();
+                }
             }));
         }
 
@@ -30,6 +39,7 @@ namespace ComeCapture.Controls
         {
             base.OnApplyTemplate();
             _TextBox = GetTemplateChild("PART_TextBox") as TextBox;
+            // point是创建TextBoxControl时的起始坐标
             _TextBox.MaxWidth = MainWindow.Current.MainImage.Width - MainWindow.Current.MainImage.point.X - 3;
             _TextBox.MaxHeight = MainWindow.Current.MainImage.Height - MainWindow.Current.MainImage.point.Y - 3;
         }
@@ -65,9 +75,10 @@ namespace ComeCapture.Controls
             get { return (bool)GetValue(MyFocusProperty); }
             set { SetValue(MyFocusProperty, value); }
         }
+
         public static readonly DependencyProperty MyFocusProperty =
                 DependencyProperty.Register("MyFocus", typeof(bool), typeof(TextBoxControl),
-                new PropertyMetadata(true, new PropertyChangedCallback(TextBoxControl.OnMyFocusPropertyChanged)));
+                new PropertyMetadata(true, new PropertyChangedCallback(OnMyFocusPropertyChanged)));
 
         private static void OnMyFocusPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {

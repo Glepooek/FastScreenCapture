@@ -14,7 +14,6 @@ namespace ComeCapture.Controls
         public KeyboardTextBox()
         {
             AddHandler(PreviewKeyDownEvent, new KeyEventHandler(Keyboard_KeyDown));
-            DataContext = AppModel.Current;
         }
 
         #region 键盘事件：只允许输入数字以及字母

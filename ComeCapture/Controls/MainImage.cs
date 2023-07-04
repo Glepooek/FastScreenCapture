@@ -11,6 +11,8 @@ using System.Windows.Shapes;
 
 namespace ComeCapture.Controls
 {
+    [TemplatePart(Name = "PART_MainImageBackground", Type = typeof(Image))]
+    [TemplatePart(Name = "PART_MainImageCanvas", Type = typeof(Canvas))]
     public class MainImage : Control
     {
         public Point point;
@@ -37,6 +39,23 @@ namespace ComeCapture.Controls
             AddHandler(MouseMoveEvent, new MouseEventHandler(OnMove));
             Limit = new Limit();
         }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            MainImageCanvas = GetTemplateChild("PART_MainImageCanvas") as Canvas;
+            MainImageBackground = GetTemplateChild("PART_MainImageBackground") as Image;
+
+            NameScope.SetNameScope(MainImageCanvas, new NameScope());
+        }
+
+        #region 属性 MainImageBackground
+        public Image MainImageBackground { get; set; }
+        #endregion
+
+        #region 属性 MainImageCanvas
+        public Canvas MainImageCanvas { get; set; }
+        #endregion
 
         #region 属性 Current
         private static MainImage _Current = null;
@@ -87,7 +106,7 @@ namespace ComeCapture.Controls
 
         public static readonly DependencyProperty DirectionProperty =
                 DependencyProperty.Register("Direction", typeof(Direction), typeof(MainImage),
-                new PropertyMetadata(Direction.Null, new PropertyChangedCallback(MainImage.OnDirectionPropertyChanged)));
+                new PropertyMetadata(Direction.Null, new PropertyChangedCallback(OnDirectionPropertyChanged)));
 
         private static void OnDirectionPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -112,7 +131,7 @@ namespace ComeCapture.Controls
 
         public static readonly DependencyProperty LimitProperty =
                 DependencyProperty.Register("Limit", typeof(Limit), typeof(MainImage),
-                new PropertyMetadata(null, new PropertyChangedCallback(MainImage.OnLimitPropertyChanged)));
+                new PropertyMetadata(null, new PropertyChangedCallback(OnLimitPropertyChanged)));
 
         private static void OnLimitPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -137,7 +156,7 @@ namespace ComeCapture.Controls
 
         public static readonly DependencyProperty ZoomThumbVisibilityProperty =
                 DependencyProperty.Register("ZoomThumbVisibility", typeof(Visibility), typeof(MainImage),
-                new PropertyMetadata(Visibility.Visible, new PropertyChangedCallback(MainImage.OnZoomThumbVisibilityPropertyChanged)));
+                new PropertyMetadata(Visibility.Visible, new PropertyChangedCallback(OnZoomThumbVisibilityPropertyChanged)));
 
         private static void OnZoomThumbVisibilityPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -176,7 +195,7 @@ namespace ComeCapture.Controls
             switch (Direction)
             {
                 case Direction.Move:
-                    if (SizeColorBar.Current.Selected == Tool.Null)
+                    if (SizeColorBar.Current.Selected == Tool.Null && this.MainImageCanvas.Children.Count == 0)
                     {
                         OnMove(X, Y);
                     }
@@ -206,6 +225,10 @@ namespace ComeCapture.Controls
                 case Direction.Null:
                     break;
                 default:
+                    if (this.MainImageCanvas.Children.Count != 0)
+                    {
+                        break;
+                    }
                     var str = Direction.ToString();
                     if (X != 0)
                     {
@@ -306,22 +329,26 @@ namespace ComeCapture.Controls
             }
             if (X > 0)
             {
-                Canvas.SetLeft(_Rectangle, point.X + AppModel.Current.MaskLeftWidth);
+                //Canvas.SetLeft(_Rectangle, point.X + AppModel.Current.MaskLeftWidth);
+                Canvas.SetLeft(_Rectangle, point.X);
                 _Rectangle.Width = X < Width - point.X ? X : Width - point.X;
             }
             else
             {
-                Canvas.SetLeft(_Rectangle, -X < point.X ? point.X + X + AppModel.Current.MaskLeftWidth : AppModel.Current.MaskLeftWidth);
+                //Canvas.SetLeft(_Rectangle, -X < point.X ? point.X + X + AppModel.Current.MaskLeftWidth : AppModel.Current.MaskLeftWidth);
+                Canvas.SetLeft(_Rectangle, point.X + X);
                 _Rectangle.Width = -X < point.X ? -X : point.X;
             }
             if (Y > 0)
             {
-                Canvas.SetTop(_Rectangle, point.Y + AppModel.Current.MaskTopHeight);
+                //Canvas.SetTop(_Rectangle, point.Y + AppModel.Current.MaskTopHeight);
+                Canvas.SetTop(_Rectangle, point.Y);
                 _Rectangle.Height = Y < Height - point.Y ? Y : Height - point.Y;
             }
             else
             {
-                Canvas.SetTop(_Rectangle, -Y < point.Y ? point.Y + Y + AppModel.Current.MaskTopHeight : AppModel.Current.MaskTopHeight);
+                //Canvas.SetTop(_Rectangle, -Y < point.Y ? point.Y + Y + AppModel.Current.MaskTopHeight : AppModel.Current.MaskTopHeight);
+                Canvas.SetTop(_Rectangle, point.Y + Y);
                 _Rectangle.Height = -Y < point.Y ? -Y : point.Y;
             }
         }
@@ -343,22 +370,26 @@ namespace ComeCapture.Controls
             }
             if (X > 0)
             {
-                Canvas.SetLeft(_Ellipse, point.X + AppModel.Current.MaskLeftWidth);
+                //Canvas.SetLeft(_Ellipse, point.X + AppModel.Current.MaskLeftWidth);
+                Canvas.SetLeft(_Ellipse, point.X);
                 _Ellipse.Width = X < Width - point.X ? X : Width - point.X;
             }
             else
             {
-                Canvas.SetLeft(_Ellipse, -X < point.X ? point.X + X + AppModel.Current.MaskLeftWidth : AppModel.Current.MaskLeftWidth);
+                //Canvas.SetLeft(_Ellipse, -X < point.X ? point.X + X + AppModel.Current.MaskLeftWidth : AppModel.Current.MaskLeftWidth);
+                Canvas.SetLeft(_Ellipse, point.X + X);
                 _Ellipse.Width = -X < point.X ? -X : point.X;
             }
             if (Y > 0)
             {
-                Canvas.SetTop(_Ellipse, point.Y + AppModel.Current.MaskTopHeight);
+                //Canvas.SetTop(_Ellipse, point.Y + AppModel.Current.MaskTopHeight);
+                Canvas.SetTop(_Ellipse, point.Y);
                 _Ellipse.Height = Y < Height - point.Y ? Y : Height - point.Y;
             }
             else
             {
-                Canvas.SetTop(_Ellipse, -Y < point.Y ? point.Y + Y + AppModel.Current.MaskTopHeight : AppModel.Current.MaskTopHeight);
+                //Canvas.SetTop(_Ellipse, -Y < point.Y ? point.Y + Y + AppModel.Current.MaskTopHeight : AppModel.Current.MaskTopHeight);
+                Canvas.SetTop(_Ellipse, point.Y + Y);
                 _Ellipse.Height = -Y < point.Y ? -Y : point.Y;
             }
         }
@@ -367,7 +398,7 @@ namespace ComeCapture.Controls
         #region 画箭头
         private void DrawArrow(double X, double Y)
         {
-            var screen = new Point(point.X + AppModel.Current.MaskLeftWidth, point.Y + AppModel.Current.MaskTopHeight);
+            //var screen = new Point(point.X + AppModel.Current.MaskLeftWidth, point.Y + AppModel.Current.MaskTopHeight);
             if (_Arrow == null)
             {
                 _Arrow = new Path()
@@ -378,10 +409,11 @@ namespace ComeCapture.Controls
                 Panel.SetZIndex(_Arrow, -1);
                 MainWindow.AddControl(_Arrow);
             }
-            var point2 = new Point(screen.X + X, screen.Y + Y);
-            point2.X = point2.X < AppModel.Current.MaskLeftWidth ? AppModel.Current.MaskLeftWidth : point2.X > AppModel.Current.MaskLeftWidth + Width ? AppModel.Current.MaskLeftWidth + Width : point2.X;
-            point2.Y = point2.Y < AppModel.Current.MaskTopHeight ? AppModel.Current.MaskTopHeight : point2.Y > AppModel.Current.MaskTopHeight + Height ? AppModel.Current.MaskTopHeight + Height : point2.Y;
-            points = ArrowTool.Current.CreateArrow(screen, point2);
+            //var point2 = new Point(screen.X + X, screen.Y + Y);
+            //point2.X = point2.X < AppModel.Current.MaskLeftWidth ? AppModel.Current.MaskLeftWidth : point2.X > AppModel.Current.MaskLeftWidth + Width ? AppModel.Current.MaskLeftWidth + Width : point2.X;
+            //point2.Y = point2.Y < AppModel.Current.MaskTopHeight ? AppModel.Current.MaskTopHeight : point2.Y > AppModel.Current.MaskTopHeight + Height ? AppModel.Current.MaskTopHeight + Height : point2.Y;
+            var point2 = new Point(point.X + X, point.Y + Y);
+            points = ArrowTool.Current.CreateArrow(point, point2);
 
             using (var ctx = geometry.Open())
             {
@@ -404,7 +436,7 @@ namespace ComeCapture.Controls
         #region 画刷
         private void DrawLine(double X, double Y)
         {
-            var screen = new Point(point.X + AppModel.Current.MaskLeftWidth, point.Y + AppModel.Current.MaskTopHeight);
+            //var screen = new Point(point.X + AppModel.Current.MaskLeftWidth, point.Y + AppModel.Current.MaskTopHeight);
             if (_Line == null)
             {
                 _Line = new Path()
@@ -414,14 +446,15 @@ namespace ComeCapture.Controls
                 };
                 points = new List<Point>
                 {
-                    screen
+                    point
                 };
                 Panel.SetZIndex(_Line, -1);
                 MainWindow.AddControl(_Line);
             }
-            var point2 = new Point(screen.X + X, screen.Y + Y);
-            point2.X = point2.X < AppModel.Current.MaskLeftWidth ? AppModel.Current.MaskLeftWidth : point2.X > AppModel.Current.MaskLeftWidth + Width ? AppModel.Current.MaskLeftWidth + Width : point2.X;
-            point2.Y = point2.Y < AppModel.Current.MaskTopHeight ? AppModel.Current.MaskTopHeight : point2.Y > AppModel.Current.MaskTopHeight + Height ? AppModel.Current.MaskTopHeight + Height : point2.Y;
+            var point2 = new Point(point.X + X, point.Y + Y);
+            //var point2 = new Point(screen.X + X, screen.Y + Y);
+            //point2.X = point2.X < AppModel.Current.MaskLeftWidth ? AppModel.Current.MaskLeftWidth : point2.X > AppModel.Current.MaskLeftWidth + Width ? AppModel.Current.MaskLeftWidth + Width : point2.X;
+            //point2.Y = point2.Y < AppModel.Current.MaskTopHeight ? AppModel.Current.MaskTopHeight : point2.Y > AppModel.Current.MaskTopHeight + Height ? AppModel.Current.MaskTopHeight + Height : point2.Y;
             points.Add(point2);
             using (var ctx = geometry.Open())
             {
@@ -463,9 +496,11 @@ namespace ComeCapture.Controls
                 {
                     point.Y = Height - 22;
                 }
-                var screen = new Point(point.X + AppModel.Current.MaskLeftWidth, point.Y + AppModel.Current.MaskTopHeight);
-                Canvas.SetLeft(_Text, screen.X);
-                Canvas.SetTop(_Text, screen.Y);
+                //var screen = new Point(point.X + AppModel.Current.MaskLeftWidth, point.Y + AppModel.Current.MaskTopHeight);
+                //Canvas.SetLeft(_Text, screen.X);
+                //Canvas.SetTop(_Text, screen.Y);
+                Canvas.SetLeft(_Text, point.X);
+                Canvas.SetTop(_Text, point.Y);
                 MainWindow.AddControl(_Text);
             }
         }

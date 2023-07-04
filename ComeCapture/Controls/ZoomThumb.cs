@@ -15,7 +15,7 @@ namespace ComeCapture.Controls
 
         public static readonly DependencyProperty DirectionProperty =
                 DependencyProperty.Register("Direction", typeof(Direction), typeof(ZoomThumb),
-                new PropertyMetadata(Direction.Null, new PropertyChangedCallback(ZoomThumb.OnDirectionPropertyChanged)));
+                new PropertyMetadata(Direction.Null, new PropertyChangedCallback(OnDirectionPropertyChanged)));
 
         private static void OnDirectionPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {

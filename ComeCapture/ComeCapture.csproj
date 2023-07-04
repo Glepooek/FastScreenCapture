@@ -68,7 +68,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\ColorBrushHelper.cs" />
     <Compile Include="Helpers\ScreenHelper.cs" />
+    <Compile Include="Helpers\TouchKeyboardHelper.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

@@ -4,6 +4,7 @@ using ComeCapture.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -48,8 +49,7 @@ namespace ComeCapture
             _Current = this;
             InitializeComponent();
             DataContext = new AppModel();
-            _TempBrush = new ImageBrush(ImageHelper.GetFullBitmapSource());
-            Background = _TempBrush;
+            Background = new ImageBrush(ImageHelper.GetFullBitmapSource());
             WpfHelper.MainDispatcher = Dispatcher;
             MaxWindow();
             MaskLeft.Height = ScreenHeight;
@@ -84,7 +84,8 @@ namespace ComeCapture
         public static void Register(object control)
         {
             var name = "Draw" + _Current.num;
-            _Current.MainCanvas.RegisterName(name, control);
+            //_Current.MainCanvas.RegisterName(name, control);
+            _Current.MainImage.MainImageCanvas.RegisterName(name, control);
             _Current.list.Add(new NameAndLimit(name));
             _Current.num++;
         }
@@ -93,28 +94,33 @@ namespace ComeCapture
         #region 截图区域添加画图
         public static void AddControl(UIElement e)
         {
-            _Current.MainCanvas.Children.Add(e);
+            //_Current.MainCanvas.Children.Add(e);
+            _Current.MainImage.MainImageCanvas.Children.Add(e);
         }
         #endregion
 
-        #region 截图区域撤回画图
+        #region 截图区域移除画图
         public static void RemoveControl(UIElement e)
         {
-            _Current.MainCanvas.Children.Remove(e);
+            //_Current.MainCanvas.Children.Remove(e);
+            _Current.MainImage.MainImageCanvas.Children.Remove(e);
         }
         #endregion
 
-        #region 撤销
+        #region 撤回
         public void OnRevoke()
         {
             if (list.Count > 0)
             {
                 var name = list[list.Count - 1].Name;
-                var obj = MainCanvas.FindName(name);
+                //var obj = MainCanvas.FindName(name);
+                var obj = _Current.MainImage.MainImageCanvas.FindName(name);
                 if (obj != null)
                 {
-                    MainCanvas.Children.Remove(obj as UIElement);
-                    MainCanvas.UnregisterName(name);
+                    //MainCanvas.Children.Remove(obj as UIElement);
+                    //MainCanvas.UnregisterName(name);
+                    _Current.MainImage.MainImageCanvas.Children.Remove(obj as UIElement);
+                    _Current.MainImage.MainImageCanvas.UnregisterName(name);
                     list.RemoveAt(list.Count - 1);
                     MainImage.Limit = list.Count == 0 ? new Limit() : list[list.Count - 1].Limit;
                 }
@@ -197,7 +203,7 @@ namespace ComeCapture
         #region 开关灯
         public void OnTurnOnLight()
         {
-            if (MaskLeft.Opacity == 1)
+            if (MaskLeft.Opacity == 0.9)
             {
                 MaskLeft.Opacity = 0.5;
                 MaskRight.Opacity = 0.5;
@@ -206,10 +212,10 @@ namespace ComeCapture
             }
             else
             {
-                MaskLeft.Opacity = 1;
-                MaskRight.Opacity = 1;
-                MaskTop.Opacity = 1;
-                MaskBottom.Opacity = 1;
+                MaskLeft.Opacity = 0.9;
+                MaskRight.Opacity = 0.9;
+                MaskTop.Opacity = 0.9;
+                MaskBottom.Opacity = 0.9;
             }
         }
         #endregion
@@ -217,7 +223,6 @@ namespace ComeCapture
         #region 最大化截图区域
 
         private bool _IsMax = false;
-        private ImageBrush _TempBrush;
         private double _TempWidth = 0;
         private double _TempHeight = 0;
         private double _TempLeft = 0;
@@ -229,53 +234,80 @@ namespace ComeCapture
                 if (_IsMax)
                 {
                     _IsMax = false;
-                    Background = _TempBrush;
-
+                    _Current.MainImage.MainImageBackground.Source = null;
+                    _Current.MainImage.ZoomThumbVisibility = Visibility.Visible;
+                    scaleTrans.ScaleX = 1;
+                    scaleTrans.ScaleY = 1;
                     Canvas.SetLeft(MainImage, _TempLeft);
                     Canvas.SetTop(MainImage, _TempTop);
-                    MainImage.Height = _TempHeight;
-                    MainImage.Width = _TempWidth;
+                    //MainImage.Height = _TempHeight;
+                    //MainImage.Width = _TempWidth;
                     AppModel.Current.MaskLeftWidth = _TempLeft;
                     AppModel.Current.MaskRightWidth = ScreenWidth - _TempLeft - _TempWidth;
                     AppModel.Current.MaskTopHeight = _TempTop;
                     AppModel.Current.MaskTopWidth = _TempWidth;
                     AppModel.Current.MaskBottomHeight = ScreenHeight - _TempTop - _TempHeight;
+                    ResetToolBarPosition();
                 }
                 else
                 {
                     _IsMax = true;
-
                     _TempWidth = MainImage.Width;
                     _TempHeight = MainImage.Height;
                     _TempLeft = Canvas.GetLeft(MainImage);
                     _TempTop = Canvas.GetTop(MainImage);
 
-                    Background = new ImageBrush(GetCapture());
+                    //var scale = ScreenWidth / ScreenHeight;
+                    //var h = ScreenHeight;
+                    //var w = ScreenHeight * scale;
 
-                    var scale = ScreenWidth / ScreenHeight;
-                    var h = ScreenHeight;
-                    var w = ScreenHeight * scale;
+                    //Canvas.SetLeft(MainImage, (ScreenWidth - w) / 2);
+                    //Canvas.SetTop(MainImage, 0);
+                    //MainImage.Height = h;
+                    //MainImage.Width = w;
 
-                    Canvas.SetLeft(MainImage, (ScreenWidth - w) / 2);
-                    Canvas.SetTop(MainImage, 0);
-                    MainImage.Height = h;
-                    MainImage.Width = w;
+                    //AppModel.Current.MaskLeftWidth = 0;
+                    //AppModel.Current.MaskRightWidth = 0;
+                    //AppModel.Current.MaskTopWidth = w;
+                    //AppModel.Current.MaskTopHeight = 0;
+                    //AppModel.Current.MaskBottomHeight = 0;
+                    //AppModel.Current.ChangeShowSize();
 
-                    AppModel.Current.MaskLeftWidth = 0;
-                    AppModel.Current.MaskRightWidth = 0;
-                    AppModel.Current.MaskTopWidth = w;
-                    AppModel.Current.MaskTopHeight = 0;
-                    AppModel.Current.MaskBottomHeight = 0;
-                    AppModel.Current.ChangeShowSize();
+                    _Current.MainImage.MainImageCanvas.Visibility = Visibility.Collapsed;
+                    _Current.MainImage.ZoomThumbVisibility = Visibility.Collapsed;
+                    Task.Delay(200).ContinueWith(t =>
+                    {
+                        _Current.MainImage.MainImageBackground.Source = GetCapture();
+                        _Current.MainImage.MainImageCanvas.Visibility = Visibility.Visible;
+
+                        var scaleX = ScreenWidth / _Current.MainImage.ActualWidth;
+                        var scaleY = ScreenHeight / _Current.MainImage.ActualHeight;
+                        scaleTrans.ScaleX = scaleX;
+                        scaleTrans.ScaleY = scaleY;
+
+                        Canvas.SetLeft(_Current.MainImage, (ScreenWidth - _Current.MainImage.Width) / 2);
+                        Canvas.SetTop(_Current.MainImage, (ScreenHeight - _Current.MainImage.Height) / 2);
+
+                        AppModel.Current.MaskLeftWidth = 0;
+                        AppModel.Current.MaskRightWidth = 0;
+                        AppModel.Current.MaskTopWidth = ScreenWidth;
+                        AppModel.Current.MaskTopHeight = 0;
+                        AppModel.Current.MaskBottomHeight = 0;
+                        AppModel.Current.ChangeShowSize();
+                        ResetToolBarPosition();
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
                 }
+            }
+        }
 
-                if (MainImage.Width >= MinSize && MainImage.Height >= MinSize)
-                {
-                    ImageEditBar.Current.Visibility = Visibility.Visible;
-                    ImageEditBar.Current.ResetCanvas();
-                    SizeColorBar.Current.ResetCanvas();
-                    Cursor = Cursors.Arrow;
-                }
+        private void ResetToolBarPosition()
+        {
+            if (MainImage.Width >= MinSize && MainImage.Height >= MinSize)
+            {
+                ImageEditBar.Current.Visibility = Visibility.Visible;
+                ImageEditBar.Current.ResetCanvas();
+                SizeColorBar.Current.ResetCanvas();
+                Cursor = Cursors.Arrow;
             }
         }
 
@@ -289,7 +321,9 @@ namespace ComeCapture
             {
                 SizeRGB.Visibility = Visibility.Collapsed;
             }
-            var need = SizeColorBar.Current.Selected == Tool.Null ? 30 : 67;
+            // ImageEditBar.Height(40) 上Margin(5)
+            // SizeColorBar.Height(44) 上Margin(2)
+            var need = SizeColorBar.Current.Selected == Tool.Null ? 45 : 91;
             if (AppModel.Current.MaskBottomHeight < need && AppModel.Current.MaskTopHeight < need)
             {
                 ImageEditBar.Current.Visibility = Visibility.Collapsed;

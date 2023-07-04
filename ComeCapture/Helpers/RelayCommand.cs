@@ -1,11 +1,4 @@
-﻿/* 
- * author      : singba singba@163.com 
- * version     : 20161221
- * source      : AF.Wpf
- * license     : free use or modify
- * description : WPF的按钮命令的基类，本程序根据微软WPF例子中的RelayCommmand做了些扩展封装
- */
-using System;
+﻿using System;
 using System.Windows.Input;
 
 namespace ComeCapture.Helpers
@@ -16,16 +9,14 @@ namespace ComeCapture.Helpers
     public class RelayCommand : ICommand
     {
         #region Fields
-
         private Func<object, bool> _canExecute;
         private Action<object> _execute;
         private bool _IsExecuting = false;
-        #endregion // Fields
+        #endregion
 
         #region Constructors
 
-        public RelayCommand(Action<object> execute)
-            : this(execute, null)
+        public RelayCommand(Action<object> execute) : this(execute, null)
         {
         }
 
@@ -34,9 +25,7 @@ namespace ComeCapture.Helpers
             ResetActions(execute, canExecute);
         }
 
-        #endregion // Constructors
-
-        //特殊情况下方法需要重设
+        #endregion
 
         #region ICommand Members
 
@@ -47,8 +36,8 @@ namespace ComeCapture.Helpers
 
         public event EventHandler CanExecuteChanged
         {
-            add { System.Windows.Input.CommandManager.RequerySuggested += value; }
-            remove { System.Windows.Input.CommandManager.RequerySuggested -= value; }
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
         public void Execute(object parameter)

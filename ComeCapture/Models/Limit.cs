@@ -14,11 +14,6 @@
         {
             return MemberwiseClone() as Limit;
         }
-
-        public Limit()
-        {
-
-        }
     }
 
     /// <summary>

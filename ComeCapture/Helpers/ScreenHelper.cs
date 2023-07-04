@@ -18,7 +18,7 @@ namespace ComeCapture.Helpers
             int nIndex // index of capability
             );
 
-        public static System.Drawing.Size GetPhysicalDisplaySize()
+        public static Size GetPhysicalDisplaySize()
         {
             Graphics g = Graphics.FromHwnd(IntPtr.Zero);
             IntPtr desktop = g.GetHdc();
@@ -26,7 +26,7 @@ namespace ComeCapture.Helpers
             int physicalScreenWidth = GetDeviceCaps(desktop, (int)DeviceCap.Desktophorzres);
             ReleaseDC(IntPtr.Zero, desktop);
             g.Dispose();
-            return new System.Drawing.Size(physicalScreenWidth, physicalScreenHeight);
+            return new Size(physicalScreenWidth, physicalScreenHeight);
         }
 
         public enum DeviceCap

@@ -1,4 +1,5 @@
-﻿using ComeCapture.Models;
+﻿using ComeCapture.Helpers;
+using ComeCapture.Models;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +17,9 @@ namespace ComeCapture.Controls
     {
         private RectangleTool _RectangleTool;
         private EllipseTool _EllipseTool;
+        private ArrowTool _ArrowTool;
         private LineTool _LineTool;
         private TextTool _TextTool;
-        private ArrowTool _ArrowTool;
 
         static SizeColorBar()
         {
@@ -87,28 +88,7 @@ namespace ComeCapture.Controls
             {
                 if (_ColorBars == null)
                 {
-                    _ColorBars = new List<SolidColorBrush>()
-                    {
-                        new SolidColorBrush(Colors.Black),
-                        new SolidColorBrush(Colors.Gray),
-                        new SolidColorBrush(Colors.Firebrick),
-                        new SolidColorBrush(Colors.Orange),
-                        new SolidColorBrush(Colors.ForestGreen),
-                        new SolidColorBrush(Colors.Blue),
-                        new SolidColorBrush(Colors.Maroon),
-                        new SolidColorBrush(Colors.CadetBlue),
-                        new SolidColorBrush(Colors.HotPink),
-
-                        new SolidColorBrush(Colors.White),
-                        new SolidColorBrush(Colors.LightGray),
-                        new SolidColorBrush(Colors.Red),
-                        new SolidColorBrush(Colors.Yellow),
-                        new SolidColorBrush(Colors.YellowGreen),
-                        new SolidColorBrush(Colors.DodgerBlue),
-                        new SolidColorBrush(Colors.Magenta),
-                        new SolidColorBrush(Colors.Cyan),
-                        new SolidColorBrush(Colors.MistyRose)
-                    };
+                    _ColorBars = ColorBrushHelper.GenerateColorBrushes();
                 }
                 return _ColorBars;
             }
@@ -184,12 +164,13 @@ namespace ComeCapture.Controls
         private void ResetCanvasTop()
         {
             // ImageEditBar.Height(40) 上Margin(5)
-            // ImageEditBar.Height(44) 上Margin(2)
+            // SizeColorBar.Height(44) 上Margin(2)
             // 45+46=91
             // 40+5+2=47
+            // 40+2=42
             CanvasTop = AppModel.Current.MaskBottomHeight >= 91 ? MainWindow.ScreenHeight - AppModel.Current.MaskBottomHeight + 47
                 : AppModel.Current.MaskTopHeight >= 91 ? AppModel.Current.MaskTopHeight - 91
-                : AppModel.Current.MaskTopHeight + 45;
+                : AppModel.Current.MaskTopHeight + 42;
         }
         #endregion
 

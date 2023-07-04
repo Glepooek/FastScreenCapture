@@ -68,6 +68,11 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
+                        <Image
+                            x:Name="PART_MainImageBackground"
+                            Stretch="Uniform"
+                            Grid.ColumnSpan="3"
+                            Grid.RowSpan="3" />
                         <control:ZoomThumb
                             Direction="Move"
                             Style="{StaticResource MoveThumb}"
@@ -128,6 +133,10 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Cursor="SizeNWSE" />
+                        <Canvas
+                            x:Name="PART_MainImageCanvas"
+                            Grid.ColumnSpan="3"
+                            Grid.RowSpan="3" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -555,8 +564,7 @@
                     <Border
                         CornerRadius="6"
                         BorderBrush="{StaticResource StackPanelColor}"
-                        Background="{TemplateBinding Background}"
-                        BorderThickness="1">
+                        Background="{TemplateBinding Background}">
                         <UniformGrid
                             Columns="11"
                             Rows="1"
@@ -569,8 +577,8 @@
                             <control:ToolButton Style="{StaticResource TextToolButton}" />
                             <control:ToolButton Style="{StaticResource RevokeButton}" />
                             <control:ToolButton Style="{StaticResource SaveButton}" />
-                            <control:ToolButton Style="{StaticResource LightOffButton}" />
-                            <control:ToolButton Style="{StaticResource MaxMinButton}" />
+                            <control:ToolButton Style="{StaticResource LightOffButton}" GroupName="Light" />
+                            <control:ToolButton Style="{StaticResource MaxMinButton}" GroupName="Max" />
                             <control:ToolButton Style="{StaticResource CancelButton}" />
                             <control:ToolButton Style="{StaticResource OKButton}" />
                         </UniformGrid>
@@ -842,8 +850,7 @@
                     <Border
                         CornerRadius="6"
                         BorderBrush="{TemplateBinding Background}"
-                        Background="{TemplateBinding Background}"
-                        BorderThickness="1">
+                        Background="{TemplateBinding Background}">
                         <Grid>
 
                             <control:RectangleTool

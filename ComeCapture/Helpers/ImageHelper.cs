@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
@@ -13,7 +14,7 @@ namespace ComeCapture.Helpers
         #region 保存为PNG图片
         public static void SaveToPng(BitmapSource image, string fileName)
         {
-            using (var fs = System.IO.File.Create(fileName))
+            using (var fs = File.Create(fileName))
             {
                 BitmapEncoder encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(image));
@@ -22,7 +23,7 @@ namespace ComeCapture.Helpers
         }
         #endregion
 
-        #region 截图
+        #region 区域截图
         public static BitmapSource GetBitmapSource(int x, int y, int width, int height)
         {
             var bounds = ScreenHelper.GetPhysicalDisplaySize();
@@ -53,7 +54,7 @@ namespace ComeCapture.Helpers
         public static BitmapSource GetFullBitmapSource()
         {
             var bounds = ScreenHelper.GetPhysicalDisplaySize();
-            _Bitmap = new Bitmap(bounds.Width, bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            _Bitmap = new Bitmap(bounds.Width, bounds.Height, PixelFormat.Format32bppArgb);
             var bmpGraphics = Graphics.FromImage(_Bitmap);
             bmpGraphics.CopyFromScreen(0, 0, 0, 0, _Bitmap.Size);
             return Imaging.CreateBitmapSourceFromHBitmap(
@@ -69,7 +70,7 @@ namespace ComeCapture.Helpers
         private static StringBuilder sb = new StringBuilder();
         public static string GetRGB(int x, int y)
         {
-            if (x < 0 || y < 0)
+            if (x < 0 || x >= _Bitmap.Width || y < 0 || y >= _Bitmap.Height)
             {
                 return string.Empty;
             }
