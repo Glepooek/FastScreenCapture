@@ -195,7 +195,8 @@ namespace ComeCapture.Controls
             switch (Direction)
             {
                 case Direction.Move:
-                    if (SizeColorBar.Current.Selected == Tool.Null && this.MainImageCanvas.Children.Count == 0)
+                    if (SizeColorBar.Current.Selected == Tool.Null 
+                        && this.MainImageCanvas.Children.Count == 0)
                     {
                         OnMove(X, Y);
                     }
@@ -488,9 +489,9 @@ namespace ComeCapture.Controls
                     FontSize = TextTool.Current.FontSize,
                     Foreground = TextTool.Current.LineBrush
                 };
-                if (point.X > Width - 36)
+                if (point.X > Width - 150)
                 {
-                    point.X = Width - 36;
+                    point.X = Width - 150;
                 }
                 if (point.Y > Height - 22)
                 {

@@ -5,7 +5,7 @@
     xmlns:converter="clr-namespace:ComeCapture.Converters"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <SolidColorBrush x:Key="BaseColor" Color="#3264FA" />
+    <SolidColorBrush x:Key="BaseColor" Color="#0092FA" />
     <SolidColorBrush x:Key="ToolButtonBorder" Color="#E5F4FE" />
     <SolidColorBrush x:Key="ToolButtonHoverBackground" Color="#E5F4FE" />
     <SolidColorBrush x:Key="ToolColor" Color="#478cde" />
@@ -1169,38 +1169,31 @@
                 <ControlTemplate TargetType="{x:Type control:TextBoxControl}">
                     <Grid FocusManager.FocusedElement="{Binding ElementName=PART_TextBox}">
                         <Border
+                            x:Name="border"
                             Width="{Binding ElementName=PART_TextBox, Path=Width}"
                             Height="{Binding ElementName=PART_TextBox, Path=Height}"
-                            BorderThickness="3">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush SpreadMethod="Repeat" StartPoint="0,5" EndPoint="5,0" MappingMode="Absolute">
-                                    <LinearGradientBrush.GradientStops>
-                                        <GradientStop Color="{Binding RelativeSource={RelativeSource AncestorType=control:TextBoxControl}, Path=BorderColor}" Offset="0" />
-                                        <GradientStop Color="{Binding RelativeSource={RelativeSource AncestorType=control:TextBoxControl}, Path=BorderColor}" Offset="0.2" />
-                                        <GradientStop Color="Transparent" Offset="0.4" />
-                                        <GradientStop Color="Transparent" Offset="0.6" />
-                                        <GradientStop Color="{Binding RelativeSource={RelativeSource AncestorType=control:TextBoxControl}, Path=BorderColor}" Offset="0.8" />
-                                        <GradientStop Color="{Binding RelativeSource={RelativeSource AncestorType=control:TextBoxControl}, Path=BorderColor}" Offset="1" />
-                                    </LinearGradientBrush.GradientStops>
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
+                            CornerRadius="4"
+                            BorderThickness="1">
                             <TextBox
                                 Name="PART_TextBox"
-                                MinWidth="30"
+                                MinWidth="146"
                                 Background="Transparent"
                                 TextWrapping="Wrap"
                                 BorderThickness="0"
                                 AcceptsReturn="True"
+                                CaretBrush="{StaticResource BaseColor}"
                                 FontSize="{TemplateBinding FontSize}"
                                 Foreground="{TemplateBinding Foreground}" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderColor" Value="Blue" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BaseColor}" />
+                            <Setter TargetName="border" Property="Background" Value="#FFFFFF" />
                         </Trigger>
                         <Trigger Property="MyFocus" Value="True">
-                            <Setter Property="BorderColor" Value="Blue" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BaseColor}" />
+                            <Setter TargetName="border" Property="Background" Value="#FFFFFF" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

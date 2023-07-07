@@ -222,7 +222,7 @@ namespace ComeCapture
 
         #region 最大化截图区域
 
-        private bool _IsMax = false;
+        private bool _IsFullScreen = false;
         private double _TempWidth = 0;
         private double _TempHeight = 0;
         private double _TempLeft = 0;
@@ -231,17 +231,17 @@ namespace ComeCapture
         {
             if (_IsCapture)
             {
-                if (_IsMax)
+                if (_IsFullScreen)
                 {
-                    _IsMax = false;
+                    _IsFullScreen = false;
                     _Current.MainImage.MainImageBackground.Source = null;
                     _Current.MainImage.ZoomThumbVisibility = Visibility.Visible;
                     scaleTrans.ScaleX = 1;
                     scaleTrans.ScaleY = 1;
+
                     Canvas.SetLeft(MainImage, _TempLeft);
                     Canvas.SetTop(MainImage, _TempTop);
-                    //MainImage.Height = _TempHeight;
-                    //MainImage.Width = _TempWidth;
+
                     AppModel.Current.MaskLeftWidth = _TempLeft;
                     AppModel.Current.MaskRightWidth = ScreenWidth - _TempLeft - _TempWidth;
                     AppModel.Current.MaskTopHeight = _TempTop;
@@ -251,27 +251,12 @@ namespace ComeCapture
                 }
                 else
                 {
-                    _IsMax = true;
+                    _IsFullScreen = true;
                     _TempWidth = MainImage.Width;
                     _TempHeight = MainImage.Height;
+
                     _TempLeft = Canvas.GetLeft(MainImage);
                     _TempTop = Canvas.GetTop(MainImage);
-
-                    //var scale = ScreenWidth / ScreenHeight;
-                    //var h = ScreenHeight;
-                    //var w = ScreenHeight * scale;
-
-                    //Canvas.SetLeft(MainImage, (ScreenWidth - w) / 2);
-                    //Canvas.SetTop(MainImage, 0);
-                    //MainImage.Height = h;
-                    //MainImage.Width = w;
-
-                    //AppModel.Current.MaskLeftWidth = 0;
-                    //AppModel.Current.MaskRightWidth = 0;
-                    //AppModel.Current.MaskTopWidth = w;
-                    //AppModel.Current.MaskTopHeight = 0;
-                    //AppModel.Current.MaskBottomHeight = 0;
-                    //AppModel.Current.ChangeShowSize();
 
                     _Current.MainImage.MainImageCanvas.Visibility = Visibility.Collapsed;
                     _Current.MainImage.ZoomThumbVisibility = Visibility.Collapsed;
@@ -280,20 +265,28 @@ namespace ComeCapture
                         _Current.MainImage.MainImageBackground.Source = GetCapture();
                         _Current.MainImage.MainImageCanvas.Visibility = Visibility.Visible;
 
+                        // 计算缩放比
                         var scaleX = ScreenWidth / _Current.MainImage.ActualWidth;
-                        var scaleY = ScreenHeight / _Current.MainImage.ActualHeight;
-                        scaleTrans.ScaleX = scaleX;
-                        scaleTrans.ScaleY = scaleY;
+                        var scaleY = (ScreenHeight - 91) / _Current.MainImage.ActualHeight;
+                        double scale = Math.Min(scaleX, scaleY);
+                        scaleTrans.ScaleX = scale;
+                        scaleTrans.ScaleY = scale;
 
-                        Canvas.SetLeft(_Current.MainImage, (ScreenWidth - _Current.MainImage.Width) / 2);
-                        Canvas.SetTop(_Current.MainImage, (ScreenHeight - _Current.MainImage.Height) / 2);
+                        // 将框选区域放到屏幕中间
+                        var left = (ScreenWidth - _Current.MainImage.Width) / 2;
+                        var top = (ScreenHeight - 91 - _Current.MainImage.Height) / 2;
+                        Canvas.SetLeft(_Current.MainImage, left);
+                        Canvas.SetTop(_Current.MainImage, top);
 
-                        AppModel.Current.MaskLeftWidth = 0;
-                        AppModel.Current.MaskRightWidth = 0;
-                        AppModel.Current.MaskTopWidth = ScreenWidth;
-                        AppModel.Current.MaskTopHeight = 0;
-                        AppModel.Current.MaskBottomHeight = 0;
+                        // 重置遮罩区域位置
+                        AppModel.Current.MaskLeftWidth = (ScreenWidth - _Current.MainImage.Width * scale) / 2;
+                        AppModel.Current.MaskRightWidth = AppModel.Current.MaskLeftWidth;
+                        AppModel.Current.MaskTopWidth = _Current.MainImage.Width * scale;
+                        AppModel.Current.MaskTopHeight = (ScreenHeight - 91 - _Current.MainImage.Height * scale) / 2;
+                        AppModel.Current.MaskBottomHeight = AppModel.Current.MaskTopHeight + 91;
                         AppModel.Current.ChangeShowSize();
+
+                        // 重置工具条显示位置
                         ResetToolBarPosition();
                     }, TaskScheduler.FromCurrentSynchronizationContext());
                 }
