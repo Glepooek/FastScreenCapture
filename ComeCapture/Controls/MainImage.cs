@@ -190,11 +190,17 @@ namespace ComeCapture.Controls
         #region 滑动中事件
         private void OnDragDelta(object sender, DragDeltaEventArgs e)
         {
+            // HorizontalChange表示的是拖动操作的水平变化量，而不是绝对的坐标位置。
+            // HorizontalChange的值是根据鼠标或触摸交互的实际移动距离来计算的。
+            // 无论拖动的起点是什么位置，只要向左移动，水平变化量就会被计算为负值；只要向右移动，水平变化量就会被计算为正值。
             var X = e.HorizontalChange;
+            // 向上拖动时负值，向下拖动时正值
             var Y = e.VerticalChange;
             switch (Direction)
             {
                 case Direction.Move:
+                    // 在MainImageCanvas有子元素的情况下禁止拖动
+                    // MainImageCanvas在MainImage内部，此时设置的Limit值错误
                     if (SizeColorBar.Current.Selected == Tool.Null 
                         && this.MainImageCanvas.Children.Count == 0)
                     {
@@ -226,6 +232,8 @@ namespace ComeCapture.Controls
                 case Direction.Null:
                     break;
                 default:
+                    // 在MainImageCanvas有子元素的情况下禁止拖动
+                    // MainImageCanvas在MainImage内部，此时设置的Limit值错误
                     if (this.MainImageCanvas.Children.Count != 0)
                     {
                         break;
