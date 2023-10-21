@@ -143,5 +143,8 @@
   <ItemGroup>
     <Resource Include="Resources\shouyou.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\showyou.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
