@@ -140,5 +140,8 @@
   <ItemGroup>
     <Resource Include="cut.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\shouyou.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
