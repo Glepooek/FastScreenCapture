@@ -31,7 +31,7 @@ namespace ComeCapture.Controls
             {
                 MouseDoubleClick += (sender, e) =>
                 {
-                    MainWindow.Current.OnOK();
+                    MainWindow.Current?.OnOK();
                 };
             }
         }

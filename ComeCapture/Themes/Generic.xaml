@@ -22,11 +22,12 @@
 
     <!--  移动滑块  -->
     <Style x:Key="MoveThumb" TargetType="{x:Type control:ZoomThumb}">
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type control:ZoomThumb}">
                     <Rectangle
-                        Fill="Transparent"
+                        Fill="{TemplateBinding Background}"
                         SnapsToDevicePixels="True"
                         Stroke="{StaticResource BaseColor}"
                         StrokeThickness="1" />
@@ -137,6 +138,98 @@
                             x:Name="PART_MainImageCanvas"
                             Grid.ColumnSpan="3"
                             Grid.RowSpan="3" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  遮罩区域  -->
+    <Style TargetType="{x:Type control:MaskingRegion}">
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type control:MaskingRegion}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <control:ZoomThumb
+                            Direction="Move"
+                            Style="{StaticResource MoveThumb}"
+                            Grid.RowSpan="3"
+                            Grid.ColumnSpan="3"
+                            Cursor="SizeAll"
+                            Background="{TemplateBinding MaskingRegionBackground}" />
+                        <control:ZoomThumb
+                            Direction="LeftTop"
+                            Style="{StaticResource ZoomThumb}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Cursor="SizeNWSE"
+                            Visibility="{TemplateBinding ZoomThumbVisibility}" />
+                        <control:ZoomThumb
+                            Direction="LeftMiddle"
+                            Style="{StaticResource ZoomThumb}"
+                            Grid.Row="1"
+                            HorizontalAlignment="Left"
+                            Cursor="SizeWE"
+                            Visibility="{TemplateBinding ZoomThumbVisibility}" />
+                        <control:ZoomThumb
+                            Direction="LeftBottom"
+                            Style="{StaticResource ZoomThumb}"
+                            Grid.Row="2"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Cursor="SizeNESW"
+                            Visibility="{TemplateBinding ZoomThumbVisibility}" />
+                        <control:ZoomThumb
+                            Direction="MiddleTop"
+                            Style="{StaticResource ZoomThumb}"
+                            Grid.Column="1"
+                            VerticalAlignment="Top"
+                            Cursor="SizeNS"
+                            Visibility="{TemplateBinding ZoomThumbVisibility}" />
+                        <control:ZoomThumb
+                            Direction="MiddleBottom"
+                            Style="{StaticResource ZoomThumb}"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            VerticalAlignment="Bottom"
+                            Cursor="SizeNS"
+                            Visibility="{TemplateBinding ZoomThumbVisibility}" />
+                        <control:ZoomThumb
+                            Direction="RightTop"
+                            Style="{StaticResource ZoomThumb}"
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Cursor="SizeNESW"
+                            Visibility="{TemplateBinding ZoomThumbVisibility}" />
+                        <control:ZoomThumb
+                            Direction="RightMiddle"
+                            Style="{StaticResource ZoomThumb}"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            Cursor="SizeWE"
+                            Visibility="{TemplateBinding ZoomThumbVisibility}" />
+                        <control:ZoomThumb
+                            Direction="RightBottom"
+                            Style="{StaticResource ZoomThumb}"
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Cursor="SizeNWSE"
+                            Visibility="{TemplateBinding ZoomThumbVisibility}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
