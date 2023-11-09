@@ -1,0 +1,51 @@
+﻿<UserControl
+    x:Class="ComeCapture.Controls.MaskingRegionControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:ComeCapture.Controls"
+    Cursor="Cross"
+    MouseLeftButtonDown="OnMouseLeftButtonDown"
+    MouseLeftButtonUp="OnMouseLeftButtonUp"
+    MouseMove="OnMouseMove"
+    x:Name="root">
+
+    <Canvas x:Name="mainCanvas" Background="Transparent">
+        <ctrl:MaskingRegion x:Name="maskingRegion" />
+
+        <!--  确定、取消  -->
+        <Border
+            x:Name="toolBar"
+            Visibility="Collapsed"
+            BorderThickness="1.62"
+            CornerRadius="6.48"
+            Height="57"
+            Padding="16,0"
+            Canvas.Left="{Binding ShowToolbarLeft}"
+            Canvas.Top="{Binding ShowToolbarTop}">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="#90A3E1" Opacity="0.4" />
+            </Border.BorderBrush>
+            <Border.Background>
+                <SolidColorBrush Color="#14172B" Opacity="0.72" />
+            </Border.Background>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button x:Name="cancel" Click="OnCancelClick">
+                    <Image
+                        Source="Resources/退出.png"
+                        Width="33"
+                        Height="33" />
+                </Button>
+                <Button
+                    x:Name="ok"
+                    Margin="22,0,0,0"
+                    Click="OnOkClick">
+                    <Image
+                        Source="Resources/确定.png"
+                        Width="33"
+                        Height="33" />
+                </Button>
+            </StackPanel>
+        </Border>
+
+    </Canvas>
+</UserControl>

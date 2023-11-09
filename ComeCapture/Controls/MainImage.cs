@@ -160,15 +160,15 @@ namespace ComeCapture.Controls
 
         private static void OnZoomThumbVisibilityPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (obj is MainImage mainImage)
+            if (obj is MainImage mainImage && e.NewValue is Visibility visibility)
             {
-                mainImage.OnZoomThumbVisibilityValueChanged();
+                mainImage.OnZoomThumbVisibilityValueChanged(visibility);
             }
         }
 
-        protected void OnZoomThumbVisibilityValueChanged()
+        protected void OnZoomThumbVisibilityValueChanged(Visibility visibility)
         {
-
+            MoveCursor = visibility == Visibility.Visible ? Cursors.SizeAll : Cursors.Arrow;
         }
         #endregion
 

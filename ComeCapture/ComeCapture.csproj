@@ -69,16 +69,20 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\MaskingRegion.cs" />
+    <Compile Include="Controls\MaskingRegionControl.xaml.cs">
+      <DependentUpon>MaskingRegionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ColorBrushHelper.cs" />
     <Compile Include="Helpers\ScreenHelper.cs" />
     <Compile Include="Helpers\TouchKeyboardHelper.cs" />
-    <Compile Include="MainWindow2.xaml.cs">
-      <DependentUpon>MainWindow2.xaml</DependentUpon>
+    <Compile Include="MaskingRegionWindow.xaml.cs">
+      <DependentUpon>MaskingRegionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityBase.cs" />
+    <Compile Include="Models\MaskingRegionModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
@@ -124,7 +128,11 @@
     <Resource Include="Resources\保存.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainWindow2.xaml">
+    <Page Include="Controls\MaskingRegionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaskingRegionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

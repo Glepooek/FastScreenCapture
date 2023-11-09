@@ -22,14 +22,14 @@
 
     <!--  移动滑块  -->
     <Style x:Key="MoveThumb" TargetType="{x:Type control:ZoomThumb}">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource BaseColor}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type control:ZoomThumb}">
                     <Rectangle
                         Fill="{TemplateBinding Background}"
                         SnapsToDevicePixels="True"
-                        Stroke="{StaticResource BaseColor}"
+                        Stroke="{TemplateBinding Foreground}"
                         StrokeThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
@@ -38,6 +38,7 @@
 
     <!--  拉伸滑块  -->
     <Style x:Key="ZoomThumb" TargetType="{x:Type control:ZoomThumb}">
+        <Setter Property="Background" Value="{StaticResource BaseColor}" />
         <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type control:MainImage}}, Path=ZoomThumbVisibility}" />
         <Setter Property="Margin" Value="-3" />
         <Setter Property="Template">
@@ -46,7 +47,7 @@
                     <Border
                         Width="6"
                         Height="6"
-                        Background="{StaticResource BaseColor}" />
+                        Background="{TemplateBinding Background}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -79,7 +80,11 @@
                             Style="{StaticResource MoveThumb}"
                             Grid.RowSpan="3"
                             Grid.ColumnSpan="3"
-                            Cursor="{Binding RelativeSource={RelativeSource AncestorType=control:MainImage}, Path=MoveCursor}" />
+                            Cursor="{TemplateBinding MoveCursor}">
+                            <control:ZoomThumb.Background>
+                                <SolidColorBrush Color="White" Opacity="0.01" />
+                            </control:ZoomThumb.Background>
+                        </control:ZoomThumb>
                         <control:ZoomThumb
                             Direction="LeftTop"
                             Style="{StaticResource ZoomThumb}"
@@ -166,7 +171,8 @@
                             Style="{StaticResource MoveThumb}"
                             Grid.RowSpan="3"
                             Grid.ColumnSpan="3"
-                            Cursor="SizeAll"
+                            Cursor="{TemplateBinding MoveCursor}"
+                            Foreground="#7985A3"
                             Background="{TemplateBinding MaskingRegionBackground}" />
                         <control:ZoomThumb
                             Direction="LeftTop"
@@ -174,6 +180,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Cursor="SizeNWSE"
+                            Background="#7985A3"
                             Visibility="{TemplateBinding ZoomThumbVisibility}" />
                         <control:ZoomThumb
                             Direction="LeftMiddle"
@@ -181,6 +188,7 @@
                             Grid.Row="1"
                             HorizontalAlignment="Left"
                             Cursor="SizeWE"
+                            Background="#7985A3"
                             Visibility="{TemplateBinding ZoomThumbVisibility}" />
                         <control:ZoomThumb
                             Direction="LeftBottom"
@@ -189,6 +197,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
                             Cursor="SizeNESW"
+                            Background="#7985A3"
                             Visibility="{TemplateBinding ZoomThumbVisibility}" />
                         <control:ZoomThumb
                             Direction="MiddleTop"
@@ -196,6 +205,7 @@
                             Grid.Column="1"
                             VerticalAlignment="Top"
                             Cursor="SizeNS"
+                            Background="#7985A3"
                             Visibility="{TemplateBinding ZoomThumbVisibility}" />
                         <control:ZoomThumb
                             Direction="MiddleBottom"
@@ -204,6 +214,7 @@
                             Grid.Column="1"
                             VerticalAlignment="Bottom"
                             Cursor="SizeNS"
+                            Background="#7985A3"
                             Visibility="{TemplateBinding ZoomThumbVisibility}" />
                         <control:ZoomThumb
                             Direction="RightTop"
@@ -212,6 +223,7 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Cursor="SizeNESW"
+                            Background="#7985A3"
                             Visibility="{TemplateBinding ZoomThumbVisibility}" />
                         <control:ZoomThumb
                             Direction="RightMiddle"
@@ -220,6 +232,7 @@
                             Grid.Column="2"
                             HorizontalAlignment="Right"
                             Cursor="SizeWE"
+                            Background="#7985A3"
                             Visibility="{TemplateBinding ZoomThumbVisibility}" />
                         <control:ZoomThumb
                             Direction="RightBottom"
@@ -229,6 +242,7 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Cursor="SizeNWSE"
+                            Background="#7985A3"
                             Visibility="{TemplateBinding ZoomThumbVisibility}" />
                     </Grid>
                 </ControlTemplate>

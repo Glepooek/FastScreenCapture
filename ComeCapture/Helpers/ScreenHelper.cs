@@ -44,5 +44,24 @@ namespace ComeCapture.Helpers
                 MainWindow.ScreenScale = physicalScreenWidth * 1.0000 / MainWindow.ScreenWidth;
             }
         }
+
+        #region 获取屏幕缩放比
+        /// <summary>
+        /// 获取屏幕缩放比
+        /// </summary>
+        /// <returns></returns>
+        private static double GetScreenScale()
+        {
+            double dpiX = 1;
+            var source = System.Windows.PresentationSource.FromVisual(App.Current.MainWindow);
+            if (source != null)
+            {
+                System.Windows.Media.Matrix m = source.CompositionTarget.TransformToDevice;
+                dpiX = m.M11;
+            }
+
+            return dpiX;
+        }
+        #endregion
     }
 }

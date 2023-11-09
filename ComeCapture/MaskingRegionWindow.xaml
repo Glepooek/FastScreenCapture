@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="ComeCapture.MainWindow2"
+    x:Class="ComeCapture.MaskingRegionWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctrl="clr-namespace:ComeCapture.Controls"
@@ -11,13 +11,12 @@
     WindowStyle="None"
     FontFamily="Microsoft YaHei"
     Cursor="Cross"
-    MouseLeftButtonDown="Window_MouseLeftButtonDown"
-    MouseLeftButtonUp="Window_MouseLeftButtonUp"
-    MouseMove="Window_MouseMove"
-    KeyDown="Window_KeyDown"
-    Background="Black">
+    MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}"
+    MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
+    KeyDown="Window_KeyDown">
+    <Window.Background>
+        <SolidColorBrush Color="White" Opacity="0.01" />
+    </Window.Background>
 
-    <Canvas x:Name="MainCanvas" Background="Transparent">
-        <ctrl:MaskingRegion x:Name="maskingRegion" />
-    </Canvas>
+    <ctrl:MaskingRegionControl x:Name="maskingRegionControl" />
 </Window>

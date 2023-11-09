@@ -1,14 +1,18 @@
-﻿using System.Windows;
+﻿using ComeCapture.Models;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
-namespace ComeCapture
+namespace ComeCapture.Controls
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// MaskingRegionControl.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow2 : Window
+    public partial class MaskingRegionControl : UserControl
     {
+        #region Fields
         /// <summary>
         /// 是否截图开始
         /// </summary>
@@ -20,18 +24,28 @@ namespace ComeCapture
         /// <summary>
         /// 截图区域宽高的最小尺寸
         /// </summary>
-        public const int MinSize = 10;
+        private const int MinSize = 10;
 
         private double _X0 = 0;
         private double _Y0 = 0;
 
-        public MainWindow2()
+        private MaskingRegionModel maskingRegionModel;
+
+        public Action CloseAction;
+        #endregion
+
+        #region Constructor
+        public MaskingRegionControl()
         {
             InitializeComponent();
-        }
 
-        #region 鼠标及键盘事件
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+            maskingRegionModel = new MaskingRegionModel();
+            this.DataContext = maskingRegionModel;
+        }
+        #endregion
+
+        #region EventHandler
+        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (_IsCapture)
             {
@@ -45,7 +59,7 @@ namespace ComeCapture
             Canvas.SetTop(maskingRegion, _Y0);
         }
 
-        private void Window_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (!_IsMouseDown || _IsCapture)
             {
@@ -59,7 +73,7 @@ namespace ComeCapture
             }
         }
 
-        private void Window_MouseMove(object sender, MouseEventArgs e)
+        private void OnMouseMove(object sender, MouseEventArgs e)
         {
             var point = e.GetPosition(this);
 
@@ -80,18 +94,32 @@ namespace ComeCapture
                 {
                     maskingRegion.Visibility = Visibility.Visible;
                 }
+                if (toolBar.Visibility == Visibility.Collapsed)
+                {
+                    toolBar.Visibility = Visibility.Visible;
+                }
 
                 maskingRegion.Width = w;
                 maskingRegion.Height = h;
+
+                maskingRegionModel.ShowToolbarLeft = point.X - toolBar.ActualWidth;
+                maskingRegionModel.ShowToolbarTop = point.Y + 10;
             }
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private void OnCancelClick(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Escape)
-            {
-                Close();
-            }
+            CloseAction?.Invoke();
+        }
+
+        private void OnOkClick(object sender, RoutedEventArgs e)
+        {
+            mainCanvas.Background = null;
+            maskingRegion.MaskingRegionBackground = new SolidColorBrush(Colors.White);
+            maskingRegion.ZoomThumbVisibility = Visibility.Collapsed;
+
+            maskingRegionModel.ShowToolbarLeft += 55;
+            ok.Visibility = Visibility.Collapsed;
         }
         #endregion
     }

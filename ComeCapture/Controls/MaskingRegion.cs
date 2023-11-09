@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace ComeCapture.Controls
@@ -12,6 +13,7 @@ namespace ComeCapture.Controls
     public class MaskingRegion : Control
     {
         private Direction mDirection;
+        private MaskingRegionModel regionModel;
 
         static MaskingRegion()
         {
@@ -26,8 +28,33 @@ namespace ComeCapture.Controls
             AddHandler(Thumb.DragStartedEvent, new DragStartedEventHandler(OnDragStart));
             AddHandler(Thumb.DragCompletedEvent, new DragCompletedEventHandler(OnDragCompleted));
             AddHandler(Thumb.DragDeltaEvent, new DragDeltaEventHandler(OnDragDelta));
-            //AddHandler(MouseMoveEvent, new MouseEventHandler(OnMove));
+            this.Loaded += (s, args) => { regionModel = this.DataContext as MaskingRegionModel; };
         }
+
+        #region MoveCursor DependencyProperty
+        public Cursor MoveCursor
+        {
+            get { return (Cursor)GetValue(MoveCursorProperty); }
+            set { SetValue(MoveCursorProperty, value); }
+        }
+
+        public static readonly DependencyProperty MoveCursorProperty =
+                DependencyProperty.Register(nameof(MoveCursor), typeof(Cursor), typeof(MaskingRegion),
+                new PropertyMetadata(Cursors.SizeAll, new PropertyChangedCallback(OnMoveCursorPropertyChanged)));
+
+        private static void OnMoveCursorPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            if (obj is MaskingRegion mainImage)
+            {
+                mainImage.OnMoveCursorValueChanged();
+            }
+        }
+
+        protected void OnMoveCursorValueChanged()
+        {
+
+        }
+        #endregion
 
         #region ZoomThumbVisibility DependencyProperty
         public Visibility ZoomThumbVisibility
@@ -52,16 +79,19 @@ namespace ComeCapture.Controls
             DependencyPropertyChangedEventArgs e
         )
         {
-            if (obj is MaskingRegion region)
+            if (obj is MaskingRegion region && e.NewValue is Visibility visibility)
             {
-                region.OnZoomThumbVisibilityValueChanged();
+                region.OnZoomThumbVisibilityValueChanged(visibility);
             }
         }
 
-        protected void OnZoomThumbVisibilityValueChanged() { }
+        protected void OnZoomThumbVisibilityValueChanged(Visibility visibility)
+        {
+            MoveCursor = visibility == Visibility.Visible ? Cursors.SizeAll : Cursors.Arrow;
+        }
         #endregion
 
-        #region ZoomThumbVisibility DependencyProperty
+        #region MaskingRegionBackground DependencyProperty
         public SolidColorBrush MaskingRegionBackground
         {
             get { return (SolidColorBrush)GetValue(MaskingRegionBackgroundProperty); }
@@ -77,7 +107,7 @@ namespace ComeCapture.Controls
                     new SolidColorBrush()
                     {
                         Color = (Color)ColorConverter.ConvertFromString("#FFFFFF"),
-                        Opacity = 0.3
+                        Opacity = 0.5
                     },
                     new PropertyChangedCallback(OnMaskingRegionBackgroundPropertyChanged)
                 )
@@ -118,7 +148,10 @@ namespace ComeCapture.Controls
                 case Direction.Null:
                     break;
                 case Direction.Move:
-                    OnMove(X, Y);
+                    if (ZoomThumbVisibility != Visibility.Collapsed)
+                    {
+                        OnMove(X, Y);
+                    }
                     break;
                 default:
                     var str = mDirection.ToString();
@@ -160,48 +193,58 @@ namespace ComeCapture.Controls
         private void OnMove(double X, double Y)
         {
             #region X轴移动
-            //if (X > 0)
-            //{
-            //    var max = AppModel.Current.MaskRightWidth > Limit.Left - AppModel.Current.MaskLeftWidth ? Limit.Left - AppModel.Current.MaskLeftWidth : AppModel.Current.MaskRightWidth;
-            //    if (X > max)
-            //    {
-            //        X = max;
-            //    }
-            //}
-            //else
-            //{
-            //    var max = AppModel.Current.MaskLeftWidth > AppModel.Current.MaskLeftWidth + Width - Limit.Right ? AppModel.Current.MaskLeftWidth + Width - Limit.Right : AppModel.Current.MaskLeftWidth;
-            //    if (-X > max)
-            //    {
-            //        X = -max;
-            //    }
-            //}
+            if (X > 0)
+            {
+                var max = regionModel.MaxScreenWidth - Canvas.GetLeft(this) - Width;
+                if (X > max)
+                {
+                    X = max;
+                }
+            }
+            else
+            {
+                var max = Canvas.GetLeft(this);
+                if (-X > max)
+                {
+                    X = -max;
+                }
+            }
             if (X != 0)
             {
                 Canvas.SetLeft(this, Canvas.GetLeft(this) + X);
+                regionModel.ShowToolbarLeft += X;
             }
             #endregion
 
             #region Y轴移动
-            //if (Y > 0)
-            //{
-            //    var max = AppModel.Current.MaskBottomHeight > Limit.Top - AppModel.Current.MaskTopHeight ? Limit.Top - AppModel.Current.MaskTopHeight : AppModel.Current.MaskBottomHeight;
-            //    if (Y > max)
-            //    {
-            //        Y = max;
-            //    }
-            //}
-            //else
-            //{
-            //    var max = AppModel.Current.MaskTopHeight > AppModel.Current.MaskTopHeight + Height - Limit.Bottom ? AppModel.Current.MaskTopHeight + Height - Limit.Bottom : AppModel.Current.MaskTopHeight;
-            //    if (-Y > max)
-            //    {
-            //        Y = -max;
-            //    }
-            //}
+            if (Y > 0)
+            {
+                var max = regionModel.MaxScreenHeight - Canvas.GetTop(this) - Height;
+                if (Y > max)
+                {
+                    Y = max;
+                }
+            }
+            else
+            {
+                var max = Canvas.GetTop(this);
+                if (-Y > max)
+                {
+                    Y = -max;
+                }
+            }
             if (Y != 0)
             {
                 Canvas.SetTop(this, Canvas.GetTop(this) + Y);
+                // 67是toolbar与遮罩区域的间距10 + toolbar的高度57
+                if (regionModel.MaxScreenHeight - (Canvas.GetTop(this) + Height) < 67)
+                {
+                    regionModel.ShowToolbarTop = Canvas.GetTop(this) - 67;
+                }
+                else
+                {
+                    regionModel.ShowToolbarTop = Canvas.GetTop(this) + Height + 10;
+                }
             }
             #endregion
         }
@@ -210,24 +253,22 @@ namespace ComeCapture.Controls
         #region 左缩放
         private void Left(double X)
         {
-            //if (X > 0)
-            //{
-            //    var max = MainWindow.Current.list.Count == 0 ? Width - MainWindow.MinSize
-            //        : Limit.Left - AppModel.Current.MaskLeftWidth < Width - MainWindow.MinSize ? Limit.Left - AppModel.Current.MaskLeftWidth
-            //        : Width - MainWindow.MinSize;
-            //    if (X > max)
-            //    {
-            //        X = max;
-            //    }
-            //}
-            //else
-            //{
-            //    var max = AppModel.Current.MaskLeftWidth;
-            //    if (-X > max)
-            //    {
-            //        X = -max;
-            //    }
-            //}
+            if (X > 0)
+            {
+                var max = Width - regionModel.MinScreenSize;
+                if (X > max)
+                {
+                    X = max;
+                }
+            }
+            else
+            {
+                var max = Canvas.GetLeft(this);
+                if (-X > max)
+                {
+                    X = -max;
+                }
+            }
             if (X != 0)
             {
                 Width -= X;
@@ -239,27 +280,26 @@ namespace ComeCapture.Controls
         #region 右缩放
         private void Right(double X)
         {
-            //if (X > 0)
-            //{
-            //    var max = AppModel.Current.MaskRightWidth;
-            //    if (X > max)
-            //    {
-            //        X = max;
-            //    }
-            //}
-            //else
-            //{
-            //    var max = MainWindow.Current.list.Count == 0 ? Width - MainWindow.MinSize
-            //        : AppModel.Current.MaskLeftWidth + Width - Limit.Right < Width - MainWindow.MinSize ? AppModel.Current.MaskLeftWidth + Width - Limit.Right
-            //        : Width - MainWindow.MinSize;
-            //    if (-X > max)
-            //    {
-            //        X = -max;
-            //    }
-            //}
+            if (X > 0)
+            {
+                var max = regionModel.MaxScreenWidth - Canvas.GetLeft(this) - Width;
+                if (X > max)
+                {
+                    X = max;
+                }
+            }
+            else
+            {
+                var max = Width - regionModel.MinScreenSize;
+                if (-X > max)
+                {
+                    X = -max;
+                }
+            }
             if (X != 0)
             {
                 Width += X;
+                regionModel.ShowToolbarLeft += X;
             }
         }
         #endregion
@@ -267,24 +307,22 @@ namespace ComeCapture.Controls
         #region 上缩放
         private void Top(double Y)
         {
-            //if (Y > 0)
-            //{
-            //    var max = MainWindow.Current.list.Count == 0 ? Height - MainWindow.MinSize
-            //        : Limit.Top - AppModel.Current.MaskTopHeight < Height - MainWindow.MinSize ? Limit.Top - AppModel.Current.MaskTopHeight
-            //        : Height - MainWindow.MinSize;
-            //    if (Y > max)
-            //    {
-            //        Y = max;
-            //    }
-            //}
-            //else
-            //{
-            //    var max = AppModel.Current.MaskLeftWidth;
-            //    if (-Y > max)
-            //    {
-            //        Y = -max;
-            //    }
-            //}
+            if (Y > 0)
+            {
+                var max = Height - regionModel.MinScreenSize;
+                if (Y > max)
+                {
+                    Y = max;
+                }
+            }
+            else
+            {
+                var max = Canvas.GetTop(this);
+                if (-Y > max)
+                {
+                    Y = -max;
+                }
+            }
             if (Y != 0)
             {
                 Height -= Y;
@@ -296,27 +334,34 @@ namespace ComeCapture.Controls
         #region 下缩放
         private void Bottom(double Y)
         {
-            //if (Y > 0)
-            //{
-            //    var max = AppModel.Current.MaskBottomHeight;
-            //    if (Y > max)
-            //    {
-            //        Y = max;
-            //    }
-            //}
-            //else
-            //{
-            //    var max = MainWindow.Current.list.Count == 0 ? Height - MainWindow.MinSize
-            //        : AppModel.Current.MaskTopHeight + Height - Limit.Bottom < Height - MainWindow.MinSize ? AppModel.Current.MaskTopHeight + Height - Limit.Bottom
-            //        : Height - MainWindow.MinSize;
-            //    if (-Y > max)
-            //    {
-            //        Y = -max;
-            //    }
-            //}
+            if (Y > 0)
+            {
+                var max = regionModel.MaxScreenHeight - Canvas.GetTop(this) - Height;
+                if (Y > max)
+                {
+                    Y = max;
+                }
+            }
+            else
+            {
+                var max = Height - regionModel.MinScreenSize;
+                if (-Y > max)
+                {
+                    Y = -max;
+                }
+            }
             if (Y != 0)
             {
                 Height += Y;
+                // 67是toolbar与遮罩区域的间距10 + toolbar的高度57
+                if (regionModel.MaxScreenHeight - (Canvas.GetTop(this) + Height) < 67)
+                {
+                    regionModel.ShowToolbarTop = Canvas.GetTop(this) - 67;
+                }
+                else
+                {
+                    regionModel.ShowToolbarTop = Canvas.GetTop(this) + Height + 10;
+                }
             }
         }
         #endregion
